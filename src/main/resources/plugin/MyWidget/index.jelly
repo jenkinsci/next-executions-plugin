@@ -1,5 +1,5 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-<l:pane width="2" title="Proximas ejecuciones">
+<l:pane width="2" title="${%Next executions}">
 	<j:forEach var="w" items="${it.builds}">
 		<tr>
 			<td>${w.name}</td>
