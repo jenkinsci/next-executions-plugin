@@ -1,8 +1,11 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 <l:pane width="2" title="Proximas ejecuciones">
-<tr><td>Prximas ejecuciones</td></tr>
+	<j:forEach var="w" items="${it.builds}">
+		<tr>
+			<td>${w.name}</td>
+			<td>${w.date}</td>
+		</tr>      
+    </j:forEach>
 </l:pane>
-${it.builds}
- 
 </j:jelly>
 
