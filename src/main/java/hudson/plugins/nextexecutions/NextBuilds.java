@@ -1,4 +1,4 @@
-package plugin;
+package hudson.plugins.nextexecutions;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

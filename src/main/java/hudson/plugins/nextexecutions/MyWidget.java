@@ -1,4 +1,4 @@
-package plugin;
+package hudson.plugins.nextexecutions;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
