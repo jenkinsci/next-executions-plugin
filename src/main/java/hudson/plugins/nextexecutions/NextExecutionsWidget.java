@@ -27,8 +27,8 @@ import hudson.triggers.TriggerDescriptor;
 import hudson.widgets.Widget;
 
 @Extension
-public class MyWidget extends Widget {
-	 private static final Logger LOGGER = Logger.getLogger(MyWidget.class.getName());
+public class NextExecutionsWidget extends Widget {
+	 private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
 	 
 	public List<NextBuilds> getBuilds() {		
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
