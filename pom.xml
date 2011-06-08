@@ -11,8 +11,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>plugin</groupId>
-	<artifactId>day-schedule</artifactId>
+	<artifactId>next-executions</artifactId>
 	<version>1.0</version>
 	<packaging>hpi</packaging>
 
