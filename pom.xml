@@ -17,7 +17,7 @@
 	<url>https://wiki.jenkins-ci.org/display/JENKINS/Next+Executions</url>
 
 	<artifactId>next-executions</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>hpi</packaging>
 
 	<repositories>
