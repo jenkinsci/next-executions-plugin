@@ -27,15 +27,18 @@ public class NextExecutionsWidget extends Widget {
 		List<AbstractProject> l = Hudson.getInstance().getItems(AbstractProject.class);
 		
 		for (AbstractProject project: l) {
-			Trigger triggers = project.getTrigger(TimerTrigger.class);
-			try {
-				CronTab c = new CronTab(triggers.getSpec());
-				Date d = new Date();				
-				Calendar cal = c.ceil(d.getTime());
-				nblist.add(new NextBuilds(project.getName(), cal));			
-			} catch (ANTLRException e) {
+			Trigger trigger = project.getTrigger(TimerTrigger.class);
+			if(trigger != null){
+				try {
+					CronTab c = new CronTab(trigger.getSpec());
+					Date d = new Date();				
+					Calendar cal = c.ceil(d.getTime());
+					nblist.add(new NextBuilds(project.getName(), cal));
 
-				e.printStackTrace();
+				} catch (ANTLRException e) {
+
+					e.printStackTrace();
+				}
 			}
 		}
 		Collections.sort(nblist);
