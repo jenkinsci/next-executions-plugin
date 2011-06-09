@@ -10,6 +10,11 @@
 		-->
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+	<scm>
+		<connection>scm:git:ssh://github.com/jenkinsci/next-executions-plugin.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/jenkinsci/next-executions-plugin.git</developerConnection>
+		<url>https://github.com/jenkinsci/next-executions-plugin.git</url>
+	</scm>
 
 	<artifactId>next-executions</artifactId>
 	<version>1.0</version>
