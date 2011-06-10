@@ -1,5 +1,6 @@
 package hudson.plugins.nextexecutions;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,7 +16,8 @@ public class NextBuilds implements Comparable{
 	}
 	
 	public String getDate() {
-		return SimpleDateFormat.getInstance().format(date.getTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return sdf.format(date.getTime());
 	}
 	
 	public String getName() {
