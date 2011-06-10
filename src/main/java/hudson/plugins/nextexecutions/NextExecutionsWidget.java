@@ -36,7 +36,7 @@ public class NextExecutionsWidget extends Widget {
 					cal = (cal == null || cal.compareTo(cronTab.ceil(d.getTime())) > 0)? cronTab.ceil(d.getTime()) : cal;					
 				}
 				if(cal != null)
-					nblist.add(new NextBuilds(project.getName(), cal));
+					nblist.add(new NextBuilds(project, cal));
 			}
 		}
 		Collections.sort(nblist);

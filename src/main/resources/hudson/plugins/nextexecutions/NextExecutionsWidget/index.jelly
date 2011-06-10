@@ -2,7 +2,7 @@
 <l:pane width="2" title="${%Next executions}">
 	<j:forEach var="w" items="${it.builds}">
 		<tr>
-			<td>${w.shortName}</td>
+			<td><a href="${w.url}">${w.shortName}</a></td>
 			<td>${w.date}</td>
 		</tr>      
     </j:forEach>

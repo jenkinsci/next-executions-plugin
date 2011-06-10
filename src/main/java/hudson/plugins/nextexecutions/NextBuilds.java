@@ -1,17 +1,22 @@
 package hudson.plugins.nextexecutions;
 
+import hudson.model.AbstractProject;
+import hudson.model.Hudson;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class NextBuilds implements Comparable{
+	private AbstractProject project;
 	private String name;
 	private String dateString;
 	private Calendar date;
 	
-	public NextBuilds(String name, Calendar date) {
-		this.name = name;
+	public NextBuilds(AbstractProject project, Calendar date) {
+		this.project = project;
+		this.name = project.getDisplayName();
 		this.date = date;
 	}
 	
@@ -24,7 +29,11 @@ public class NextBuilds implements Comparable{
 		return name;
 	}
 	
-	public String getshortName() {
+	public String getUrl(){
+		return Hudson.getInstance().getRootUrl() + project.getUrl();
+	}
+	
+	public String getshortName() {		
 		return (name.length() > 22)? name.substring(0, 19) + "...": name;		
 	}
 
@@ -38,6 +47,5 @@ public class NextBuilds implements Comparable{
 			return 0;
 		}
 	}
-	
-	
+		
 }
