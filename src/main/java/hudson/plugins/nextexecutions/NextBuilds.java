@@ -21,6 +21,10 @@ public class NextBuilds implements Comparable{
 	public String getName() {
 		return name;
 	}
+	
+	public String getshortName() {
+		return (name.length() > 22)? name.substring(0, 19) + "...": name;		
+	}
 
 	public int compareTo(Object o) {
 		if(o instanceof NextBuilds){
