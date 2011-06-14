@@ -27,16 +27,18 @@ public class NextExecutionsWidget extends Widget {
 		List<AbstractProject> l = Hudson.getInstance().getItems(AbstractProject.class);
 		
 		for (AbstractProject project: l) {
-			Trigger trigger = project.getTrigger(TimerTrigger.class);
-			if(trigger != null){
-				List<CronTab> crons = parseSpec(trigger.getSpec());
-				Calendar cal = null;
-				for (CronTab cronTab : crons) {
-					Date d = new Date();				
-					cal = (cal == null || cal.compareTo(cronTab.ceil(d.getTime())) > 0)? cronTab.ceil(d.getTime()) : cal;					
+			if(!project.isDisabled()){
+				Trigger trigger = project.getTrigger(TimerTrigger.class);
+				if(trigger != null){
+					List<CronTab> crons = parseSpec(trigger.getSpec());
+					Calendar cal = null;
+					for (CronTab cronTab : crons) {
+						Date d = new Date();				
+						cal = (cal == null || cal.compareTo(cronTab.ceil(d.getTime())) > 0)? cronTab.ceil(d.getTime()) : cal;					
+					}
+					if(cal != null)
+						nblist.add(new NextBuilds(project, cal));
 				}
-				if(cal != null)
-					nblist.add(new NextBuilds(project, cal));
 			}
 		}
 		Collections.sort(nblist);
