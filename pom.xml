@@ -9,6 +9,9 @@
 		-->
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 	<scm>
 		<connection>scm:git:ssh://github.com/jenkinsci/next-executions-plugin.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/jenkinsci/next-executions-plugin.git</developerConnection>
