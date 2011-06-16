@@ -1,15 +1,30 @@
 package hudson.plugins.nextexecutions.columns;
 
+import java.util.Calendar;
+
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
+import hudson.model.AbstractProject;
+import hudson.model.Job;
+import hudson.model.Run;
 import hudson.views.ListViewColumnDescriptor;
 import hudson.views.ListViewColumn;
+import hudson.plugins.nextexecutions.*;
+import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 
 public class NextExecutionColumn extends ListViewColumn {
 
 	@DataBoundConstructor
 	public NextExecutionColumn() {
+	}
+	
+	public String getNextEjecution(Job job){
+		if(job instanceof AbstractProject){
+			NextBuilds b = NextExecutionsUtils.getNextBuild((AbstractProject)job);
+			return b.getDate();
+		}
+		return "";
 	}
 	
 	@Extension
