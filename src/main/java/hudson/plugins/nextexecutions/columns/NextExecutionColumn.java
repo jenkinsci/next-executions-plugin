@@ -19,7 +19,7 @@ public class NextExecutionColumn extends ListViewColumn {
 	public NextExecutionColumn() {
 	}
 	
-	public String getNextEjecution(Job job){
+	public String getNextExecution(Job job){
 		if(job instanceof AbstractProject){
 			NextBuilds b = NextExecutionsUtils.getNextBuild((AbstractProject)job);
 			return b.getDate();
