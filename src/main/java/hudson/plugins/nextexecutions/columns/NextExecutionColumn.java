@@ -34,7 +34,7 @@ public class NextExecutionColumn extends ListViewColumn {
 		@Override
 		public String getDisplayName() {
 			// TODO Auto-generated method stub
-			return "TEST";
+			return Messages.NextExecutions_ColumnName();
 		}
 		@Override
 		public boolean shownByDefault() {
