@@ -15,6 +15,12 @@ import hudson.triggers.Trigger;
 
 public class NextExecutionsUtils {
 
+	/**
+	 *   Returns the {@link NextBuild} for the project.
+	 *
+	 * @return The {@link NextBuild} object with the associated
+	 * next execution date or null.
+	 */
 	public static NextBuilds getNextBuild(AbstractProject project){
 		if(!project.isDisabled()){
 			Trigger trigger = project.getTrigger(TimerTrigger.class);
