@@ -22,7 +22,8 @@ public class NextExecutionColumn extends ListViewColumn {
 	public String getNextExecution(Job job){
 		if(job instanceof AbstractProject){
 			NextBuilds b = NextExecutionsUtils.getNextBuild((AbstractProject)job);
-			return b.getDate();
+			if(b != null)
+				return b.getDate();
 		}
 		return "";
 	}
