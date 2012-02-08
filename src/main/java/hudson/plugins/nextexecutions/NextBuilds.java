@@ -5,6 +5,7 @@ import hudson.model.Describable;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import hudson.model.Hudson;
+import hudson.util.FormValidation;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 import net.sf.json.JSONObject;
 
+import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
 public class NextBuilds implements Comparable, Describable<NextBuilds>{
@@ -81,5 +83,15 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			return true;
 		}
 		
+		public FormValidation doCheckDateFormat(@QueryParameter String value) {
+			try{
+				SimpleDateFormat sdf = new SimpleDateFormat(value);
+				return FormValidation.ok();
+			}
+			catch (IllegalArgumentException e) {
+				return FormValidation.error("problem");
+			}
+		}
+
 	}
 }
