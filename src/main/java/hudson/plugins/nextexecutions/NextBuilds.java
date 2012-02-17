@@ -5,6 +5,7 @@ import hudson.model.Describable;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import hudson.model.Hudson;
+import hudson.plugins.nextexecutions.nextbuilds.Messages;
 import hudson.util.FormValidation;
 
 import java.text.DateFormat;
@@ -66,6 +67,10 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	public static class DescriptorImpl extends Descriptor<NextBuilds>  {
 		private String dateFormat;
 		
+		public DescriptorImpl() {
+			load();
+		}
+		
 		@Override
 		public String getDisplayName() {
 			return "TESTING ";
@@ -75,6 +80,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			return dateFormat;
 		}
 		
+				
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject json)
 				throws hudson.model.Descriptor.FormException {
@@ -88,8 +94,8 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 				SimpleDateFormat sdf = new SimpleDateFormat(value);
 				return FormValidation.ok();
 			}
-			catch (IllegalArgumentException e) {
-				return FormValidation.error("problem");
+			catch (IllegalArgumentException e) {				
+				return FormValidation.error(Messages.Format_Error());
 			}
 		}
 
