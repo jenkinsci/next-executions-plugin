@@ -1,7 +1,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-  <f:section title="${%Next Builds Configuration}">
-  	<f:entry title="${%Date format}"  help="/plugin/next-executions/dateFormat.html">
-    	<f:textbox name="dateFormat" value="${descriptor.dateFormat}" checkUrl="'${rootURL}/descriptorByName/hudson.plugins.nextexecutions.NextBuilds/checkDateFormat?value='+this.value"/>
+  <f:section title="${%Next Executions Configuration}">
+  	<f:entry title="${%Date format}"  help="/plugin/next-executions/dateFormat.html" field="dateFormat">
+    	<f:textbox/>
     </f:entry>
   </f:section>
 </j:jelly>
