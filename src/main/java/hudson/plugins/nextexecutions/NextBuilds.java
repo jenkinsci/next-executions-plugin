@@ -5,7 +5,7 @@ import hudson.model.Describable;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import hudson.model.Hudson;
-import hudson.plugins.nextexecutions.nextbuilds.Messages;
+import hudson.plugins.nextexecutions.Messages;
 import hudson.util.FormValidation;
 
 import java.text.DateFormat;
@@ -31,8 +31,11 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 	
 	public String getDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		sdf = new SimpleDateFormat(this.getDescriptor().getDateFormat());
+		String dateFormat = this.getDescriptor().getDateFormat();
+		if(dateFormat == null){
+			dateFormat = this.getDescriptor().getDefault();
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
 		return sdf.format(date.getTime());
 	}
 	
@@ -79,7 +82,12 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		public String getDateFormat() {
 			return dateFormat;
 		}
+
 		
+		public String getDefault() {
+			return "dd/MM/yyyy HH:mm";
+		}
+
 				
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject json)
