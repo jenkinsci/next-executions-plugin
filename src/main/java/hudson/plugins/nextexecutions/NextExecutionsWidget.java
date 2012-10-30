@@ -17,6 +17,7 @@ import hudson.model.AbstractProject;
 import hudson.model.Hudson;
 import hudson.model.View;
 import hudson.model.TopLevelItem;
+import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 import hudson.scheduler.CronTab;
 import hudson.triggers.TimerTrigger;
@@ -34,7 +35,10 @@ public class NextExecutionsWidget extends Widget {
 		
 		View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
 		
-		if(v != null) {
+		DescriptorImpl d = (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
+		
+		if(d.getFilterByView() && v != null)
+		{			
 			Collection<TopLevelItem> tli = v.getItems();
 			Vector<AbstractProject> vector = new Vector<AbstractProject>();
 			for (TopLevelItem topLevelItem : tli) {
