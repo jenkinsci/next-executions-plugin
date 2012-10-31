@@ -1,0 +1,12 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+<j:if test="${!it.builds.isEmpty()}">
+<l:pane width="2" title="${%Next executions}">
+	<j:forEach var="w" items="${it.builds}">
+		<tr>
+			<td><a tooltip="${w.name}" href="${w.url}">${w.shortName}</a></td>
+			<td>${w.date}</td>
+		</tr>      
+    </j:forEach>
+</l:pane>
+</j:if>
+</j:jelly>
