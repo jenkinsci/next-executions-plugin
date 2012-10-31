@@ -1,5 +1,6 @@
 package hudson.plugins.nextexecutions.utils;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -10,13 +11,14 @@ import antlr.ANTLRException;
 import hudson.model.AbstractProject;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
+import hudson.scheduler.CronTabList;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
 
 public class NextExecutionsUtils {
 
 	/**
-	 *   Returns the {@link NextBuild} for the project.
+	 * Returns the {@link NextBuild} for the project.
 	 *
 	 * @return The {@link NextBuild} object with the associated
 	 * next execution date or null.
@@ -24,8 +26,18 @@ public class NextExecutionsUtils {
 	public static NextBuilds getNextBuild(AbstractProject project){
 		if(!project.isDisabled()){
 			Trigger trigger = project.getTrigger(TimerTrigger.class);
-			if(trigger != null){
-				List<CronTab> crons = parseSpec(trigger.getSpec());
+			if(trigger != null){	
+				try{
+				Field triggerTabsField = Trigger.class.getDeclaredField("tabs");
+				triggerTabsField.setAccessible(true);
+				
+				CronTabList cronTabList = (CronTabList)triggerTabsField.get(trigger);
+				
+				Field crontablistTabsField = CronTabList.class.getDeclaredField("tabs");
+				crontablistTabsField.setAccessible(true);
+				
+				List<CronTab> crons = (Vector<CronTab>)crontablistTabsField.get(cronTabList);
+				
 				Calendar cal = null;
 				for (CronTab cronTab : crons) {
 					Date d = new Date();				
@@ -33,28 +45,16 @@ public class NextExecutionsUtils {
 				}
 				if(cal != null)
 					return new NextBuilds(project, cal);
+				}
+				catch(NoSuchFieldException e){
+					e.printStackTrace();
+				}
+				catch(IllegalAccessException e){
+					e.printStackTrace();
+				}
+				
 			}
 		}
 		return null;
-	}
-	
-	/**
-	 * Pretty much the same as {@link CronTabList#create(String)}
-	 */
-	private static List<CronTab> parseSpec(String format) {
-		Vector<CronTab> r = new Vector<CronTab>();
-        int lineNumber = 0;
-        for (String line : format.split("\\r?\\n")) {
-            lineNumber++;
-            line = line.trim();
-            if(line.length()==0 || line.startsWith("#"))
-                continue;   // ignorable line
-            try {
-                r.add(new CronTab(line,lineNumber));
-            } catch (ANTLRException e) {
-                e.printStackTrace();
-            }
-        }
-        return r;
 	}
 }
