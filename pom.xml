@@ -27,7 +27,7 @@
 	</developers>
 
 	<artifactId>next-executions</artifactId>
-	<version>1.0.5-SNAPSHOT</version>
+	<version>1.0.5</version>
 	<packaging>hpi</packaging>
 
 	<repositories>
