@@ -26,9 +26,9 @@ import hudson.widgets.Widget;
 
 @Extension
 public class NextExecutionsWidget extends Widget {
-	 private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
 	 
-	public List<NextBuilds> getBuilds() {		
+	public List<NextBuilds> getBuilds() {
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
 
 		List<AbstractProject> l;
@@ -38,7 +38,7 @@ public class NextExecutionsWidget extends Widget {
 		DescriptorImpl d = (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
 		
 		if(d.getFilterByView() && v != null)
-		{			
+		{
 			Collection<TopLevelItem> tli = v.getItems();
 			Vector<AbstractProject> vector = new Vector<AbstractProject>();
 			for (TopLevelItem topLevelItem : tli) {
@@ -51,7 +51,7 @@ public class NextExecutionsWidget extends Widget {
 		else{
 			l = Hudson.getInstance().getItems(AbstractProject.class); 
 		}
-			
+		
 		
 		for (AbstractProject project: l) {
 			NextBuilds nb = NextExecutionsUtils.getNextBuild(project);
@@ -62,6 +62,4 @@ public class NextExecutionsWidget extends Widget {
 		return nblist;
 		
 	}
-	
-
 }
