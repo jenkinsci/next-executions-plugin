@@ -19,10 +19,10 @@ import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 @Extension
 public class NextExecutionsComputerWidget extends ComputerPanelBox {
 	
-	public List<NextBuilds> getBuilds() {		
+	public List<NextBuilds> getBuilds() {
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
 
-		List<AbstractProject> l = getComputer().getTiedJobs();				
+		List<AbstractProject> l = getComputer().getTiedJobs();
 		
 		for (AbstractProject project: l) {
 			NextBuilds nb = NextExecutionsUtils.getNextBuild(project);

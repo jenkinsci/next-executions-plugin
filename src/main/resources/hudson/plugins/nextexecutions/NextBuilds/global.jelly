@@ -1,10 +1,10 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
   <f:section title="${%Next Executions Configuration}">
-  	<f:entry title="${%Filter jobs by view}"  help="/plugin/next-executions/filterByView.html" field="filterByView">
-  		<f:checkbox />  	
-  	</f:entry>
-  	<f:entry title="${%Date format}"  help="/plugin/next-executions/dateFormat.html" field="dateFormat">
-    	<f:textbox default="${descriptor.getDefault()}"/>
+    <f:entry title="${%Filter jobs by view}"  help="/plugin/next-executions/filterByView.html" field="filterByView">
+      <f:checkbox />
+    </f:entry>
+    <f:entry title="${%Date format}"  help="/plugin/next-executions/dateFormat.html" field="dateFormat">
+      <f:textbox default="${descriptor.getDefault()}"/>
     </f:entry>
   </f:section>
 </j:jelly>

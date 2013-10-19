@@ -47,8 +47,8 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		return Hudson.getInstance().getRootUrl() + project.getUrl();
 	}
 	
-	public String getshortName() {		
-		return (name.length() > 22)? name.substring(0, 19) + "...": name;		
+	public String getshortName() {
+		return (name.length() > 22)? name.substring(0, 19) + "...": name;
 	}
 
 	public int compareTo(Object o) {
@@ -63,9 +63,9 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 
 	public DescriptorImpl getDescriptor() {
-		 return (DescriptorImpl)Hudson.getInstance().getDescriptorOrDie(getClass());		
+		return (DescriptorImpl)Hudson.getInstance().getDescriptorOrDie(getClass());
 	}
-		
+	
 	@Extension
 	public static class DescriptorImpl extends Descriptor<NextBuilds>  {
 		private String dateFormat;
@@ -95,16 +95,15 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		}
 		
 		public boolean getFilterByViewDefault() {
-			return true;			
+			return true;
 		}
-
-				
+		
 		@Override
 		public boolean configure(StaplerRequest req, JSONObject json)
 				throws hudson.model.Descriptor.FormException {
 			dateFormat = json.getString("dateFormat");
 			filterByView = json.getBoolean("filterByView");
-			save();			
+			save();
 			return true;
 		}
 		
@@ -113,10 +112,9 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 				SimpleDateFormat sdf = new SimpleDateFormat(value);
 				return FormValidation.ok();
 			}
-			catch (IllegalArgumentException e) {				
+			catch (IllegalArgumentException e) {
 				return FormValidation.error(Messages.Format_Error());
 			}
 		}
-
 	}
 }
