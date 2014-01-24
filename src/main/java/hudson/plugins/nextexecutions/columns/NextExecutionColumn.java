@@ -13,6 +13,14 @@ import hudson.views.ListViewColumn;
 import hudson.plugins.nextexecutions.*;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 
+/**
+ * 
+ * Column that shows the next scheduled date for a job.
+ * 
+ * @author ialbors
+ *
+ */
+
 public class NextExecutionColumn extends ListViewColumn {
 
 	@DataBoundConstructor

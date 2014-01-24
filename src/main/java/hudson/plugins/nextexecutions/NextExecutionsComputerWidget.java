@@ -16,6 +16,15 @@ import hudson.model.View;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 
+
+/**
+ * Widget in the {@link Computer} page's sidebar with a list
+ * of projects (tied to that Computer) and their next scheduled 
+ * build's date. The list is sorted by date.
+ * 
+ * @author ialbors
+ *
+ */
 @Extension
 public class NextExecutionsComputerWidget extends ComputerPanelBox {
 	

@@ -24,6 +24,14 @@ import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
 import hudson.widgets.Widget;
 
+/**
+ * Widget in the main sidebar with a list
+ * of projects and their next scheduled 
+ * build's date. The list is sorted by date.
+ * 
+ * @author ialbors
+ *
+ */
 @Extension
 public class NextExecutionsWidget extends Widget {
 	 private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
