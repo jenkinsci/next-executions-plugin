@@ -15,9 +15,20 @@ import java.util.Date;
 
 import net.sf.json.JSONObject;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
+/**
+ * Provides a way to get the project's next execution date.
+ * 
+ */
 public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	private AbstractProject project;
 	private String name;
@@ -30,13 +41,39 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		this.date = date;
 	}
 	
-	public String getDate() {
+	private String formatDate(Date d) {
 		String dateFormat = this.getDescriptor().getDateFormat();
 		if(dateFormat == null){
 			dateFormat = this.getDescriptor().getDefault();
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-		return sdf.format(date.getTime());
+		return sdf.format(d.getTime());
+	}
+	
+	public String getDate() {
+		return formatDate(date.getTime());
+	}
+	
+	public String getTimeToGo() {
+		DateTime now = new DateTime();
+		
+		PeriodType periodType = PeriodType.dayTime();
+		periodType.withMillisRemoved();
+		Period timeToGo = new Period(now, new DateTime(date.getTimeInMillis()),
+				periodType);  
+
+		PeriodFormatter pf = new PeriodFormatterBuilder().
+			appendDays().
+			appendSuffix("d").
+			appendSeparatorIfFieldsBefore(" ").
+			appendHours().
+			appendSuffix("h").
+			appendSeparatorIfFieldsBefore(" ").
+			appendMinutes().
+			appendSuffix("m").
+			toFormatter();
+		
+		return Messages.TimeToGo(pf.print(timeToGo));
 	}
 	
 	public String getName() {
