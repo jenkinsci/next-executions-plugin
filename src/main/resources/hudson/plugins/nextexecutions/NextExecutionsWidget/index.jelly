@@ -3,7 +3,7 @@
 	<j:forEach var="w" items="${it.builds}">
 		<tr>
 			<td><a tooltip="${w.name}" href="${w.url}">${w.shortName}</a></td>
-			<td>${w.date}</td>
+			<td tooltip="${w.timeToGo}">${w.date}</td>
 		</tr>      
     </j:forEach>
 </l:pane>
