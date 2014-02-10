@@ -1,6 +1,5 @@
 package hudson.plugins.nextexecutions;
 
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -10,8 +9,6 @@ import java.util.logging.Logger;
 
 import org.kohsuke.stapler.Stapler;
 
-import antlr.ANTLRException;
-
 import hudson.Extension;
 import hudson.model.AbstractProject;
 import hudson.model.Hudson;
@@ -19,9 +16,6 @@ import hudson.model.View;
 import hudson.model.TopLevelItem;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
-import hudson.scheduler.CronTab;
-import hudson.triggers.TimerTrigger;
-import hudson.triggers.Trigger;
 import hudson.widgets.Widget;
 
 /**

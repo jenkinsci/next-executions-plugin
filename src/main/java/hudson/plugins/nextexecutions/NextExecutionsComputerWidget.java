@@ -1,19 +1,12 @@
 package hudson.plugins.nextexecutions;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import org.kohsuke.stapler.Stapler;
-
 import hudson.Extension;
 import hudson.model.AbstractProject;
 import hudson.model.ComputerPanelBox;
-import hudson.model.Hudson;
-import hudson.model.TopLevelItem;
-import hudson.model.View;
-import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 
 

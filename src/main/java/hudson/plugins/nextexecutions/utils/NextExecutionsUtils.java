@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-import antlr.ANTLRException;
-
 import hudson.model.AbstractProject;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
