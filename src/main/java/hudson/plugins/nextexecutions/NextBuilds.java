@@ -25,6 +25,10 @@ import org.joda.time.format.PeriodFormatterBuilder;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
+/**
+ * Provides a way to get the project's next execution date.
+ * 
+ */
 public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	private AbstractProject project;
 	private String name;
