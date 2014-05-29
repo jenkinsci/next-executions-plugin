@@ -63,4 +63,10 @@ public class NextExecutionsWidget extends Widget {
 		return nblist;
 		
 	}
+	
+	public String getWidgetName() {
+		return Messages.NextExec_WidgetName();
+
+	}
+	
 }
