@@ -22,8 +22,12 @@ public class NextExecutionsUtils {
 	 * next execution date or null.
 	 */
 	public static NextBuilds getNextBuild(AbstractProject project){
+		return getNextBuild(project, TimerTrigger.class);
+	}
+	
+	public static NextBuilds getNextBuild(AbstractProject project, Class<? extends Trigger> triggerClass){
 		if(!project.isDisabled()){
-			Trigger trigger = project.getTrigger(TimerTrigger.class);
+			Trigger trigger = project.getTrigger(triggerClass);
 			if(trigger != null){
 				try{
 				Field triggerTabsField = Trigger.class.getDeclaredField("tabs");
