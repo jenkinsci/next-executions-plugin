@@ -15,6 +15,8 @@ import hudson.model.View;
 import hudson.model.TopLevelItem;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
+import hudson.triggers.Trigger;
+import hudson.triggers.TimerTrigger;
 import hudson.widgets.Widget;
 
 /**
@@ -29,6 +31,11 @@ import hudson.widgets.Widget;
 public class NextExecutionsWidget extends Widget {
 	private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
 	 
+	protected Class<? extends Trigger> triggerClass;
+	public NextExecutionsWidget() {
+		triggerClass = TimerTrigger.class;
+	}
+	
 	public List<NextBuilds> getBuilds() {
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
 
@@ -55,7 +62,7 @@ public class NextExecutionsWidget extends Widget {
 		
 		
 		for (AbstractProject project: l) {
-			NextBuilds nb = NextExecutionsUtils.getNextBuild(project);
+			NextBuilds nb = NextExecutionsUtils.getNextBuild(project, triggerClass);
 			if(nb != null)
 				nblist.add(nb);
 		}
