@@ -104,6 +104,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	public static class DescriptorImpl extends Descriptor<NextBuilds>  {
 		private String dateFormat;
 		private Boolean filterByView;
+		private Boolean showPossibleWidget;
 		
 		public DescriptorImpl() {
 			load();
@@ -124,6 +125,13 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			return filterByView;
 		}
 		
+		public boolean getShowPossibleWidget() {
+			if(showPossibleWidget == null)
+				return false;
+			return showPossibleWidget;
+		}
+		
+		
 		public String getDefault() {
 			return "dd/MM/yyyy HH:mm";
 		}
@@ -137,6 +145,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 				throws hudson.model.Descriptor.FormException {
 			dateFormat = json.getString("dateFormat");
 			filterByView = json.getBoolean("filterByView");
+			showPossibleWidget = json.getBoolean("showPossibleWidget");
 			save();
 			return true;
 		}

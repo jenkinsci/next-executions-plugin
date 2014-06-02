@@ -76,4 +76,8 @@ public class NextExecutionsWidget extends Widget {
 
 	}
 	
+	public boolean showWidget() {
+		return true;
+	}
+	
 }
