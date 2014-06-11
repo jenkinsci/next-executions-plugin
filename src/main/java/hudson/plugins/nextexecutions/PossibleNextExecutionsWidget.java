@@ -22,4 +22,9 @@ public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
 		DescriptorImpl d = (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
 		return d.getShowPossibleWidget();
 	}
+	
+	@Override
+	public String getWidgetId() {
+		return super.getWidgetId() + "-possible";
+	}
 }

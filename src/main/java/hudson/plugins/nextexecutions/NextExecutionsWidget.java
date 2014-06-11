@@ -76,6 +76,10 @@ public class NextExecutionsWidget extends Widget {
 
 	}
 	
+	public String getWidgetId() {
+		return "next-exec";
+	}
+	
 	public boolean showWidget() {
 		return true;
 	}
