@@ -83,5 +83,11 @@ public class NextExecutionsWidget extends Widget {
 	public boolean showWidget() {
 		return true;
 	}
+
+    public int getDisplayMode() {
+        DescriptorImpl d =
+          (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
+        return d.getDisplayMode();
+    }
 	
 }
