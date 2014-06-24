@@ -105,6 +105,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		private String dateFormat;
 		private Boolean filterByView;
 		private Boolean showPossibleWidget;
+		private Integer displayMode;
 		
 		public DescriptorImpl() {
 			load();
@@ -132,6 +133,13 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		}
 		
 		
+		public Integer getDisplayMode() {
+			if(displayMode == null) {
+				return 1;
+			}
+			return displayMode;
+		}
+
 		public String getDefault() {
 			return "dd/MM/yyyy HH:mm";
 		}
@@ -146,6 +154,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			dateFormat = json.getString("dateFormat");
 			filterByView = json.getBoolean("filterByView");
 			showPossibleWidget = json.getBoolean("showPossibleWidget");
+			displayMode = json.getInt("displayMode");
 			save();
 			return true;
 		}
