@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Logger;
 
+import jenkins.model.Jenkins;
+
 import org.kohsuke.stapler.Stapler;
 
 import hudson.Extension;
 import hudson.model.AbstractProject;
-import hudson.model.Hudson;
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.WaitingItem;
@@ -50,7 +51,7 @@ public class NextExecutionsWidget extends Widget {
 		
 		View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
 		
-		DescriptorImpl d = (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
+		DescriptorImpl d = (DescriptorImpl)(Jenkins.getInstance().getDescriptorOrDie(NextBuilds.class));
 		
 		if(d.getFilterByView() && v != null)
 		{
@@ -64,7 +65,7 @@ public class NextExecutionsWidget extends Widget {
 			l = vector;
 		}
 		else{
-			l = Hudson.getInstance().getItems(AbstractProject.class); 
+			l = Jenkins.getInstance().getItems(AbstractProject.class); 
 		}
 		
 		
@@ -115,7 +116,7 @@ public class NextExecutionsWidget extends Widget {
 
     public int getDisplayMode() {
         DescriptorImpl d =
-          (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
+          (DescriptorImpl)(Jenkins.getInstance().getDescriptorOrDie(NextBuilds.class));
         return d.getDisplayMode();
     }
 	

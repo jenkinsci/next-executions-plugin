@@ -4,7 +4,6 @@ import hudson.Extension;
 import hudson.model.Describable;
 import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
-import hudson.model.Hudson;
 import hudson.plugins.nextexecutions.Messages;
 import hudson.util.FormValidation;
 
@@ -12,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
 import org.joda.time.DateTime;
@@ -78,7 +78,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 	
 	public String getUrl(){
-		return Hudson.getInstance().getRootUrl() + project.getUrl();
+		return Jenkins.getInstance().getRootUrl() + project.getUrl();
 	}
 	
 	public String getshortName() {
@@ -97,7 +97,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 
 	public DescriptorImpl getDescriptor() {
-		return (DescriptorImpl)Hudson.getInstance().getDescriptorOrDie(getClass());
+		return (DescriptorImpl)Jenkins.getInstance().getDescriptorOrDie(getClass());
 	}
 	
 	@Extension

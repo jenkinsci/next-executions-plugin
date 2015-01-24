@@ -1,7 +1,7 @@
 package hudson.plugins.nextexecutions;
 
+import jenkins.model.Jenkins;
 import hudson.Extension;
-import hudson.model.Hudson;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.triggers.SCMTrigger;
 
@@ -19,7 +19,7 @@ public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
 	
 	@Override
 	public boolean showWidget() {
-		DescriptorImpl d = (DescriptorImpl)(Hudson.getInstance().getDescriptorOrDie(NextBuilds.class));
+		DescriptorImpl d = (DescriptorImpl)(Jenkins.getInstance().getDescriptorOrDie(NextBuilds.class));
 		return d.getShowPossibleWidget();
 	}
 	
