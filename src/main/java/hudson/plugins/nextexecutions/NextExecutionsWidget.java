@@ -1,5 +1,6 @@
 package hudson.plugins.nextexecutions;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,9 @@ import org.kohsuke.stapler.Stapler;
 import hudson.Extension;
 import hudson.model.AbstractProject;
 import hudson.model.Hudson;
+import hudson.model.Queue;
+import hudson.model.Queue.Item;
+import hudson.model.Queue.WaitingItem;
 import hudson.model.View;
 import hudson.model.TopLevelItem;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
@@ -23,6 +27,9 @@ import hudson.widgets.Widget;
  * Widget in the main sidebar with a list
  * of projects and their next scheduled 
  * build's date. The list is sorted by date.
+ * 
+ * It includes those in the Queue with an execution
+ * delay of more than a minute.
  * 
  * @author ialbors
  *
@@ -66,6 +73,28 @@ public class NextExecutionsWidget extends Widget {
 			if(nb != null)
 				nblist.add(nb);
 		}
+
+		// Get also the items in the queue but only those that have a waiting
+		// period of more than a minute.
+		
+		// Only for this class. Not its children
+		if (this.getClass() == NextExecutionsWidget.class) {
+			Item[] queueItems = Queue.getInstance().getItems();
+			for (Item item : queueItems) {
+				if(item instanceof WaitingItem && item.task instanceof AbstractProject) {
+					WaitingItem waitingItem = (WaitingItem)item;
+					Calendar now = Calendar.getInstance();
+					long nowMilliseconds = now.getTimeInMillis();
+					now.setTimeInMillis(nowMilliseconds + 60 * 1000);
+					if(waitingItem.timestamp.after(now)) {
+						NextBuilds nb = new NextBuilds((AbstractProject)item.task, waitingItem.timestamp);
+						nblist.add(nb);
+					}
+			
+				}
+			}
+		}
+
 		Collections.sort(nblist);
 		return nblist;
 		
