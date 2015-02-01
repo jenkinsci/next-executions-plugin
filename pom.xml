@@ -16,7 +16,8 @@
 		<connection>scm:git:ssh://github.com/jenkinsci/next-executions-plugin.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/jenkinsci/next-executions-plugin.git</developerConnection>
 		<url>https://github.com/jenkinsci/next-executions-plugin.git</url>
-	</scm>
+	  <tag>next-executions-1.0.10</tag>
+  </scm>
 	<url>https://wiki.jenkins-ci.org/display/JENKINS/Next+Executions</url>
 
 	<developers>
@@ -27,7 +28,7 @@
 	</developers>
 
 	<artifactId>next-executions</artifactId>
-	<version>1.0.10-SNAPSHOT</version>
+	<version>1.0.10</version>
 	<packaging>hpi</packaging>
 
 	<repositories>
