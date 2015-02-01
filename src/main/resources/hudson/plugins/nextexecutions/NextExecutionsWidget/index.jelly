@@ -2,7 +2,7 @@
 <j:if test="${it.showWidget()}">
   <style>
   <j:if test="${it.displayMode==1}">
-  	#${it.widgetId}.pane {
+  	#${it.widgetId} table {
   		table-layout: fixed;
   	}
     #${it.widgetId} td {
@@ -11,7 +11,7 @@
     }
   </j:if>
   <j:if test="${it.displayMode==2}">
-  	#${it.widgetId}.pane {
+  	#${it.widgetId} table {
   		table-layout: fixed;
   	}
   	#${it.widgetId} td {
