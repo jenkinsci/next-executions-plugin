@@ -21,6 +21,7 @@ import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
+import hudson.Util;
 
 /**
  * Provides a way to get the project's next execution date.
@@ -34,7 +35,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	
 	public NextBuilds(AbstractProject project, Calendar date) {
 		this.project = project;
-		this.name = project.getDisplayName();
+		this.name = Util.escape(project.getDisplayName());
 		this.date = date;
 	}
 	
