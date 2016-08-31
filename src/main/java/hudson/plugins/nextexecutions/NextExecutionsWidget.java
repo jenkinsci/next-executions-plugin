@@ -13,6 +13,7 @@ import org.kohsuke.stapler.Stapler;
 
 import hudson.Extension;
 import hudson.model.AbstractProject;
+import hudson.model.Job;
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.WaitingItem;
@@ -47,7 +48,7 @@ public class NextExecutionsWidget extends Widget {
 	public List<NextBuilds> getBuilds() {
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
 
-		List<AbstractProject> l;
+		List<Job<?, ?>> l;
 		
 		View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
 		
@@ -56,20 +57,23 @@ public class NextExecutionsWidget extends Widget {
 		if(d.getFilterByView() && v != null)
 		{
 			Collection<TopLevelItem> tli = v.getItems();
-			Vector<AbstractProject> vector = new Vector<AbstractProject>();
+			Vector<Job<?,?>> vector = new Vector<Job<?,?>>();
 			for (TopLevelItem topLevelItem : tli) {
-				if(topLevelItem instanceof AbstractProject){
-					vector.add((AbstractProject)topLevelItem);
+				if(topLevelItem instanceof Job<?,?>){
+					vector.add((Job<?, ?>)topLevelItem);
 				}
 			}
 			l = vector;
 		}
 		else{
-			l = Jenkins.getInstance().getItems(AbstractProject.class); 
+		    l = new Vector<Job<?,?>>();
+		    for (Job<?,?> j : Jenkins.getInstance().getItems(Job.class)) {
+			l.add(j);
+		    }
 		}
 		
 		
-		for (AbstractProject project: l) {
+		for (Job<?,?> project: l) {
 			NextBuilds nb = NextExecutionsUtils.getNextBuild(project, triggerClass);
 			if(nb != null)
 				nblist.add(nb);

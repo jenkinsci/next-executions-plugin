@@ -6,12 +6,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import org.jenkinsci.plugins.workflow.job.WorkflowJob;
+
 import hudson.model.AbstractProject;
+import hudson.model.Job;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
+import jenkins.model.Jenkins;
 
 public class NextExecutionsUtils {
 
@@ -21,13 +25,25 @@ public class NextExecutionsUtils {
 	 * @return The {@link NextBuild} object with the associated
 	 * next execution date or null.
 	 */
-	public static NextBuilds getNextBuild(AbstractProject project){
+	
+	public static NextBuilds getNextBuild(Job project){
 		return getNextBuild(project, TimerTrigger.class);
 	}
 	
-	public static NextBuilds getNextBuild(AbstractProject project, Class<? extends Trigger> triggerClass){
-		if(!project.isDisabled()){
-			Trigger trigger = project.getTrigger(triggerClass);
+	public static NextBuilds getNextBuild(Job<?,?> project, Class<? extends Trigger> triggerClass){
+
+	    		Trigger<?> trigger = null;
+	    		if(project instanceof AbstractProject && !((AbstractProject<?,?>)project).isDisabled()) {
+	    		    trigger = ((AbstractProject<?,?>)project).getTrigger(triggerClass);
+	    		} else if (Jenkins.getInstance().getPlugin("workflow-job") != null && project instanceof WorkflowJob) {
+	    		    for (Trigger p : ((WorkflowJob)project).getTriggers().values()) {
+	    			if(triggerClass.isInstance(p)) {
+	    			    trigger = p;
+	    			    break;
+	    			}
+	    		    }
+	    		}
+	    		
 			if(trigger != null){
 				try{
 				Field triggerTabsField = Trigger.class.getDeclaredField("tabs");
@@ -56,7 +72,6 @@ public class NextExecutionsUtils {
 				}
 				
 			}
-		}
 		return null;
 	}
 }
