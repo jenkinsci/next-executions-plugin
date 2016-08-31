@@ -2,8 +2,8 @@ package hudson.plugins.nextexecutions;
 
 import hudson.Extension;
 import hudson.model.Describable;
-import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
+import hudson.model.Job;
 import hudson.plugins.nextexecutions.Messages;
 import hudson.util.FormValidation;
 
@@ -28,12 +28,12 @@ import hudson.Util;
  * 
  */
 public class NextBuilds implements Comparable, Describable<NextBuilds>{
-	private AbstractProject project;
+	private Job<?, ?> project;
 	private String name;
 	private String dateString;
 	private Calendar date;
 	
-	public NextBuilds(AbstractProject project, Calendar date) {
+	public NextBuilds(Job<?,?> project, Calendar date) {
 		this.project = project;
 		this.name = Util.escape(project.getDisplayName());
 		this.date = date;

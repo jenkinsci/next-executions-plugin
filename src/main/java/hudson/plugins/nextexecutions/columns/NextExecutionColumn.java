@@ -3,7 +3,6 @@ package hudson.plugins.nextexecutions.columns;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
-import hudson.model.AbstractProject;
 import hudson.model.Job;
 import hudson.views.ListViewColumnDescriptor;
 import hudson.views.ListViewColumn;
@@ -25,11 +24,9 @@ public class NextExecutionColumn extends ListViewColumn {
 	}
 	
 	public String getNextExecution(Job job){
-		if(job instanceof AbstractProject){
-			NextBuilds b = NextExecutionsUtils.getNextBuild((AbstractProject)job);
+			NextBuilds b = NextExecutionsUtils.getNextBuild(job);
 			if(b != null)
 				return b.getDate();
-		}
 		return "";
 	}
 	
