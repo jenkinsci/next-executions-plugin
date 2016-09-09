@@ -16,9 +16,9 @@ import hudson.triggers.Trigger;
 public class NextExecutionsUtils {
 
 	/**
-	 * Returns the {@link NextBuild} for the project.
+	 * Returns the {@link NextBuilds} for the project.
 	 *
-	 * @return The {@link NextBuild} object with the associated
+	 * @return The {@link NextBuilds} object with the associated
 	 * next execution date or null.
 	 */
 	public static NextBuilds getNextBuild(AbstractProject project){

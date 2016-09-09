@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import hudson.Extension;
 import hudson.model.AbstractProject;
+import hudson.model.Computer;
 import hudson.model.ComputerPanelBox;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 
