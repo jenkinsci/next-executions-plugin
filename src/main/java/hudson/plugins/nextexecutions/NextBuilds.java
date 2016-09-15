@@ -2,7 +2,6 @@ package hudson.plugins.nextexecutions;
 
 import hudson.Extension;
 import hudson.model.Describable;
-import hudson.model.AbstractProject;
 import hudson.model.Descriptor;
 import hudson.plugins.nextexecutions.Messages;
 import hudson.util.FormValidation;
@@ -22,18 +21,19 @@ import org.joda.time.format.PeriodFormatterBuilder;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import hudson.Util;
+import jenkins.model.ParameterizedJobMixIn;
 
 /**
  * Provides a way to get the project's next execution date.
  * 
  */
 public class NextBuilds implements Comparable, Describable<NextBuilds>{
-	private AbstractProject project;
+	private ParameterizedJobMixIn.ParameterizedJob project;
 	private String name;
 	private String dateString;
 	private Calendar date;
 	
-	public NextBuilds(AbstractProject project, Calendar date) {
+	public NextBuilds(ParameterizedJobMixIn.ParameterizedJob project, Calendar date) {
 		this.project = project;
 		this.name = Util.escape(project.getDisplayName());
 		this.date = date;

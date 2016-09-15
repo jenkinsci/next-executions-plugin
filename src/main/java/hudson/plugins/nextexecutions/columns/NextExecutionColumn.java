@@ -3,12 +3,12 @@ package hudson.plugins.nextexecutions.columns;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 import hudson.Extension;
-import hudson.model.AbstractProject;
 import hudson.model.Job;
 import hudson.views.ListViewColumnDescriptor;
 import hudson.views.ListViewColumn;
 import hudson.plugins.nextexecutions.*;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
+import jenkins.model.ParameterizedJobMixIn;
 
 /**
  * 
@@ -25,8 +25,8 @@ public class NextExecutionColumn extends ListViewColumn {
 	}
 	
 	public String getNextExecution(Job job){
-		if(job instanceof AbstractProject){
-			NextBuilds b = NextExecutionsUtils.getNextBuild((AbstractProject)job);
+		if(job instanceof ParameterizedJobMixIn.ParameterizedJob){
+			NextBuilds b = NextExecutionsUtils.getNextBuild((ParameterizedJobMixIn.ParameterizedJob)job);
 			if(b != null)
 				return b.getDate();
 		}

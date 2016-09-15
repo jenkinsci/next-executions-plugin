@@ -12,7 +12,6 @@ import jenkins.model.Jenkins;
 import org.kohsuke.stapler.Stapler;
 
 import hudson.Extension;
-import hudson.model.AbstractProject;
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.WaitingItem;
@@ -23,6 +22,7 @@ import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
 import hudson.triggers.Trigger;
 import hudson.triggers.TimerTrigger;
 import hudson.widgets.Widget;
+import jenkins.model.ParameterizedJobMixIn;
 
 /**
  * Widget in the main sidebar with a list
@@ -47,7 +47,7 @@ public class NextExecutionsWidget extends Widget {
 	public List<NextBuilds> getBuilds() {
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
 
-		List<AbstractProject> l;
+		List<ParameterizedJobMixIn.ParameterizedJob> l;
 		
 		View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
 		
@@ -56,20 +56,20 @@ public class NextExecutionsWidget extends Widget {
 		if(d.getFilterByView() && v != null)
 		{
 			Collection<TopLevelItem> tli = v.getItems();
-			Vector<AbstractProject> vector = new Vector<AbstractProject>();
+			Vector<ParameterizedJobMixIn.ParameterizedJob> vector = new Vector<ParameterizedJobMixIn.ParameterizedJob>();
 			for (TopLevelItem topLevelItem : tli) {
-				if(topLevelItem instanceof AbstractProject){
-					vector.add((AbstractProject)topLevelItem);
+				if(topLevelItem instanceof ParameterizedJobMixIn.ParameterizedJob){
+					vector.add((ParameterizedJobMixIn.ParameterizedJob)topLevelItem);
 				}
 			}
 			l = vector;
 		}
 		else{
-			l = Jenkins.getInstance().getItems(AbstractProject.class); 
+			l = Jenkins.getInstance().getItems(ParameterizedJobMixIn.ParameterizedJob.class); 
 		}
 		
 		
-		for (AbstractProject project: l) {
+		for (ParameterizedJobMixIn.ParameterizedJob project: l) {
 			NextBuilds nb = NextExecutionsUtils.getNextBuild(project, triggerClass);
 			if(nb != null)
 				nblist.add(nb);
@@ -82,13 +82,13 @@ public class NextExecutionsWidget extends Widget {
 		if (this.getClass() == NextExecutionsWidget.class) {
 			Item[] queueItems = Queue.getInstance().getItems();
 			for (Item item : queueItems) {
-				if(item instanceof WaitingItem && item.task instanceof AbstractProject) {
+				if(item instanceof WaitingItem && item.task instanceof ParameterizedJobMixIn.ParameterizedJob) {
 					WaitingItem waitingItem = (WaitingItem)item;
 					Calendar now = Calendar.getInstance();
 					long nowMilliseconds = now.getTimeInMillis();
 					now.setTimeInMillis(nowMilliseconds + 60 * 1000);
 					if(waitingItem.timestamp.after(now)) {
-						NextBuilds nb = new NextBuilds((AbstractProject)item.task, waitingItem.timestamp);
+						NextBuilds nb = new NextBuilds((ParameterizedJobMixIn.ParameterizedJob)item.task, waitingItem.timestamp);
 						nblist.add(nb);
 					}
 			
