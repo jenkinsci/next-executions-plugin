@@ -25,6 +25,7 @@ public class NextExecutionsUtils {
      * @return The {@link NextBuilds} object with the associated next execution
      * date or null.
      */
+    @Deprecated
     public static NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
         return getNextBuild(project, TimerTrigger.class);
     }
