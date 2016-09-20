@@ -22,11 +22,14 @@ import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 import hudson.Util;
 import jenkins.model.ParameterizedJobMixIn;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * Provides a way to get the project's next execution date.
  * 
  */
+@ExportedBean(defaultVisibility = 2)
 public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	private ParameterizedJobMixIn.ParameterizedJob project;
 	private String name;
@@ -48,6 +51,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		return sdf.format(d.getTime());
 	}
 	
+	@Exported
 	public String getDate() {
 		return formatDate(date.getTime());
 	}
@@ -74,10 +78,12 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		return Messages.TimeToGo(pf.print(timeToGo));
 	}
 	
+	@Exported
 	public String getName() {
 		return name;
 	}
 	
+	@Exported
 	public String getUrl(){
 		return Jenkins.getInstance().getRootUrl() + project.getUrl();
 	}

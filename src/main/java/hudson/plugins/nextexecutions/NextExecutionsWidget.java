@@ -12,6 +12,7 @@ import jenkins.model.Jenkins;
 import org.kohsuke.stapler.Stapler;
 
 import hudson.Extension;
+import hudson.model.Api;
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.WaitingItem;
@@ -23,6 +24,8 @@ import hudson.triggers.Trigger;
 import hudson.triggers.TimerTrigger;
 import hudson.widgets.Widget;
 import jenkins.model.ParameterizedJobMixIn;
+import org.kohsuke.stapler.export.Exported;
+import org.kohsuke.stapler.export.ExportedBean;
 
 /**
  * Widget in the main sidebar with a list
@@ -35,6 +38,7 @@ import jenkins.model.ParameterizedJobMixIn;
  * @author ialbors
  *
  */
+@ExportedBean
 @Extension
 public class NextExecutionsWidget extends Widget {
 	private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
@@ -43,7 +47,10 @@ public class NextExecutionsWidget extends Widget {
 	public NextExecutionsWidget() {
 		triggerClass = TimerTrigger.class;
 	}
-	
+
+	public Api getApi() { return new Api(this); }
+
+	@Exported(name = "next_executions")
 	public List<NextBuilds> getBuilds() {
 		List<NextBuilds> nblist = new Vector<NextBuilds>();
 
