@@ -26,9 +26,9 @@
       <tr>
         <td><a tooltip="${w.name}" href="${w.url}">${w.name}</a></td>
         <td tooltip="${w.timeToGo}">${w.date}</td>
+        <td tooltip="${w.
       </tr>
     </j:forEach>
   </l:pane>
 </j:if>
 </j:jelly>
-

@@ -14,6 +14,7 @@ import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.format.PeriodFormatter;
@@ -35,11 +36,13 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	private String name;
 	private String dateString;
 	private Calendar date;
+	private Duration estimatedDuration;
 	
 	public NextBuilds(ParameterizedJobMixIn.ParameterizedJob project, Calendar date) {
 		this.project = project;
 		this.name = Util.escape(project.getDisplayName());
 		this.date = date;
+		this.estimatedDuration = new Duration(project.getEstimatedDuration());
 	}
 	
 	private String formatDate(Date d) {
@@ -64,18 +67,19 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		Period timeToGo = new Period(now, new DateTime(date.getTimeInMillis()),
 				periodType);  
 
-		PeriodFormatter pf = new PeriodFormatterBuilder().
-			appendDays().
-			appendSuffix("d").
-			appendSeparatorIfFieldsBefore(" ").
-			appendHours().
-			appendSuffix("h").
-			appendSeparatorIfFieldsBefore(" ").
-			appendMinutes().
-			appendSuffix("m").
-			toFormatter();
+		PeriodFormatter pf = getPeriodFormatter();
 		
 		return Messages.TimeToGo(pf.print(timeToGo));
+	}
+
+	public String getEstimatedDuration() {
+		PeriodType periodType = PeriodType.dayTime();
+		periodType.withMillisRemoved();
+		Period estimatedDuration = this.estimatedDuration.toPeriod(periodType);
+
+		PeriodFormatter pf = getPeriodFormatter();
+
+		return Messages.EstimatedDuration(pf.print(estimatedDuration));
 	}
 	
 	@Exported
@@ -101,6 +105,19 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		else{
 			return 0;
 		}
+	}
+
+	private PeriodFormatter getPeriodFormatter() {
+		return new PeriodFormatterBuilder().
+				appendDays().
+				appendSuffix("d").
+				appendSeparatorIfFieldsBefore(" ").
+				appendHours().
+				appendSuffix("h").
+				appendSeparatorIfFieldsBefore(" ").
+				appendMinutes().
+				appendSuffix("m").
+				toFormatter();
 	}
 
 	public DescriptorImpl getDescriptor() {
