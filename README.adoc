@@ -1,0 +1,144 @@
+:toc:
+:toc-placement!:
+
+Adds a widget in the sidebar with the next _build_ date for all the
+scheduled projects. It also creates a column definition.
+
+
+toc::[]
+
+
+On DEV@cloud
+------------
+
+image:https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fnext-executions-plugin%2Fjenkinsfile[]
+
+Screenshots
+-----------
+
+A picture's worth a thousand words.
+
+Sidebar widget (main)
+~~~~~~~~~~~~~~~~~~~~~
+
+image:docs/img/ff74f25465115c0d5003170ee17b94a07e2a95a7.jpg[image,title="Jenkins > Next Executions > next-executions1.jpeg"]
+
+Sidebar widget (Computer)
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+image:docs/img/dac9022b311b6a735e6bdd964b101636906ec950.png[image,title="Jenkins > Next Executions > next-executions-computer_widget.png"]
+
+View Column
+~~~~~~~~~~~
+
+image:docs/img/257cde2bf762c739603f74001f1affa0a8418be7.jpg[image,title="Jenkins > Next Executions > next-executions_column.jpeg"]
+
+Configuration options
+~~~~~~~~~~~~~~~~~~~~~
+
+image:docs/img/92a33c6fe243189bb4bc08f6a6d52727ae4117b6.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
+
+Changelog
+---------
+
+Version 1.0.12 (2016-09-20)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* https://issues.jenkins-ci.org/browse/JENKINS-35476[JENKINS-35476]:
+Show pipeline/workflow jobs
+* https://issues.jenkins-ci.org/browse/JENKINS-30840[JENKINS-30840]:
+added column type for possible next executions.
+* https://issues.jenkins-ci.org/browse/JENKINS-36210[JENKINS-36210]:
+expose widget data through API
+
+Version 1.0.11 (2016-02-04)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Fixes
+https://issues.jenkins-ci.org/browse/JENKINS-32652[JENKINS-32652].
+* Updated german translation
+
+Version 1.0.10 (2015-02-01)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Show items in the queue (only if they're gonna be there for more than
+a minute). See, for example,
+https://wiki.jenkins-ci.org/display/JENKINS/Schedule+Build+Plugin[Schedule
+Build Plugin]).
+* Fixed widget's different display modes in latest Jenkins versions.
+
+Version 1.0.9 (2014-07-08)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* https://issues.jenkins-ci.org/browse/JENKINS-16339[JENKINS-16339]
+Jobname truncated in next-executions. Added 3 display modes to show the
+job name in the widget.
+1.  Truncate: truncate job name if too long.
+2.  Fixed width: job name wraps to next line
+3.  Jenkins: same as other regular Jenkins' widgets; widget expands
+horizontally to show the job name.
+
+Version 1.0.8 (2014-06-17)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* https://issues.jenkins-ci.org/browse/JENKINS-23391[JENKINS-23391]
+Widget don't collapse when "-" button is clicked.
+
+Version 1.0.7 (2014-06-09)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added German translation (thanks to
+https://github.com/phoenix384[phoenix384]).
+* https://issues.jenkins-ci.org/browse/JENKINS-23162[JENKINS-23162]
+Added an optional widget to show the next polling for the SCM trigger.
+To enable it, go to the global configuration page.
+
+Version 1.0.6 (2014-02-10)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added French translation (thanks to
+https://github.com/damienfinck[damienfinck]).
+* https://issues.jenkins-ci.org/browse/JENKINS-21267[JENKINS-21267]
+Added tooltip to show remaining time until next execution.
+
+Version 1.0.5 (2012-11-07)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Fixed
+https://issues.jenkins-ci.org/browse/JENKINS-12676[JENKINS-12676]
+(thanks to OHTAKE Tomohiro for the patch).
+* Added a global configuration option to enable/disable filtering by
+view in sidebar's widget.
+* Added a Computer's widget. It shows the jobs tied to a computer.
+
+Version 1.0.4 (2012-02-25)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added a global configuration option to set the date format.
+
+Version 1.0.3 (2012-01-13)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added ja localization (Thanks to Tadanori Nakagawa).
+
+Version 1.0.2 (2011-06-21)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added column definition for the views.
+* Shows only projects associated with the view.
+* Disabled projects should not be shown.
+
+Version 1.0.1 (2011-06-14)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added tooltip to project name.
+* Links to projects
+* Changed date format to fit same width.
+* Shorter project name on widget
+
+Version 1.0.0 (2011-06-09)
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Initial Release.
+
+ 
