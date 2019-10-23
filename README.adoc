@@ -11,7 +11,7 @@ toc::[]
 On DEV@cloud
 ------------
 
-image:https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fnext-executions-plugin%2Fjenkinsfile[]
+image:https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fnext-executions-plugin%2Fmaster[]
 
 Screenshots
 -----------
