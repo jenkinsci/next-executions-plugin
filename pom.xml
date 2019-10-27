@@ -3,16 +3,14 @@
 	<parent>
 		<groupId>org.jenkins-ci.plugins</groupId>
 		<artifactId>plugin</artifactId>
-		<version>2.2</version>
-		<!--
-			which version of Hudson is this plugin built against?
-		-->
-		<relativePath>../pom.xml</relativePath>
+		<version>3.51</version>
+		<relativePath />
 	</parent>
     <properties>
+        <jenkins.version>2.176.4</jenkins.version><!-- which version of Jenkins is this plugin built against? -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jenkins.version>1.580.2</jenkins.version>
-        <java.level>6</java.level>
+        <java.level>8</java.level>
     </properties>
 	<scm>
 		<connection>scm:git:ssh://github.com/jenkinsci/next-executions-plugin.git</connection>
