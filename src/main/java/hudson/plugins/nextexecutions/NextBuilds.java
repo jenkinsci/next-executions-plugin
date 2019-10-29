@@ -25,6 +25,8 @@ import jenkins.model.ParameterizedJobMixIn;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Provides a way to get the project's next execution date.
  * 
@@ -60,7 +62,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		DateTime now = new DateTime();
 		
 		PeriodType periodType = PeriodType.dayTime();
-		periodType.withMillisRemoved();
+		periodType = periodType.withMillisRemoved();
 		Period timeToGo = new Period(now, new DateTime(date.getTimeInMillis()),
 				periodType);  
 
@@ -75,7 +77,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			appendSuffix("m").
 			toFormatter();
 		
-		return Messages.TimeToGo(pf.print(timeToGo));
+		return Messages.timeToGo(pf.print(timeToGo));
 	}
 	
 	@Exported
@@ -85,13 +87,17 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	
 	@Exported
 	public String getUrl(){
-		return Jenkins.getInstance().getRootUrl() + project.getUrl();
+		Jenkins j = Jenkins.getInstance();
+		return j != null ? j.getRootUrl() + project.getUrl() : null;
 	}
 	
 	public String getshortName() {
 		return (name.length() > 22)? name.substring(0, 19) + "...": name;
 	}
 
+	@Override
+	@SuppressFBWarnings(value = "EQ_COMPARETO_USE_OBJECT_EQUALS")
+	// TODO: Review this SuppressFBWarnings
 	public int compareTo(Object o) {
 		if(o instanceof NextBuilds){
 			NextBuilds toCompare = (NextBuilds)o;
@@ -104,7 +110,8 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 
 	public DescriptorImpl getDescriptor() {
-		return (DescriptorImpl)Jenkins.getInstance().getDescriptorOrDie(getClass());
+		Jenkins j = Jenkins.getInstance();
+		return j != null ? (DescriptorImpl)j.getDescriptorOrDie(getClass()) : null;
 	}
 	
 	@Extension
@@ -168,7 +175,11 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		
 		public FormValidation doCheckDateFormat(@QueryParameter String value) {
 			try{
+				// We don't really use it. It's just to check if it
+				//  throws an exception
 				SimpleDateFormat sdf = new SimpleDateFormat(value);
+				// Call random method to avoid spotbugs DLS_DEAD_LOCAL_STORE
+				sdf.getClass();
 				return FormValidation.ok();
 			}
 			catch (IllegalArgumentException e) {

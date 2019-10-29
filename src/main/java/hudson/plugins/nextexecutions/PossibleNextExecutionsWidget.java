@@ -19,7 +19,12 @@ public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
 	
 	@Override
 	public boolean showWidget() {
-		DescriptorImpl d = (DescriptorImpl)(Jenkins.getInstance().getDescriptorOrDie(NextBuilds.class));
+		Jenkins j = Jenkins.getInstance();
+		DescriptorImpl d = j != null ? (DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class)) : null;
+
+		if (d == null){
+			return false;
+		}
 		return d.getShowPossibleWidget();
 	}
 	

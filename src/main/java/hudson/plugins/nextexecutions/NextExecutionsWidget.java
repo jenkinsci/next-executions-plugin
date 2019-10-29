@@ -58,7 +58,13 @@ public class NextExecutionsWidget extends Widget {
 		
 		View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
 		
-		DescriptorImpl d = (DescriptorImpl)(Jenkins.getInstance().getDescriptorOrDie(NextBuilds.class));
+		Jenkins j = Jenkins.getInstance();
+
+		if (j == null) {
+			return nblist;
+		}
+
+		DescriptorImpl d = (DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class));
 		
 		if(d.getFilterByView() && v != null)
 		{
@@ -72,7 +78,7 @@ public class NextExecutionsWidget extends Widget {
 			l = vector;
 		}
 		else{
-			l = Jenkins.getInstance().getItems(ParameterizedJobMixIn.ParameterizedJob.class); 
+			l = j.getItems(ParameterizedJobMixIn.ParameterizedJob.class);
 		}
 		
 		
@@ -121,9 +127,14 @@ public class NextExecutionsWidget extends Widget {
 		return true;
 	}
 
+	// Default displayMode will be 1
     public int getDisplayMode() {
-        DescriptorImpl d =
-          (DescriptorImpl)(Jenkins.getInstance().getDescriptorOrDie(NextBuilds.class));
+		Jenkins j = Jenkins.getInstance();
+        DescriptorImpl d = j != null ? (DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class)) : null;
+
+		if (d == null) {
+			return 1;
+		}
         return d.getDisplayMode();
     }
 	
