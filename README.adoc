@@ -41,6 +41,15 @@ image:docs/img/92a33c6fe243189bb4bc08f6a6d52727ae4117b6.png[image,title="Jenkins
 Changelog
 ---------
 
+Version 1.0.15 (2019-10-30)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Some failed versions (unable to release them)  between this one and 1.0.12
+* Build on ci.jenkins.io
+* Migrated documentation from wiki to github
+* Updated versions (core, parent, jdk)
+* Fixed some spotbugs
+
 Version 1.0.12 (2016-09-20)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
