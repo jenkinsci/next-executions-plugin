@@ -58,7 +58,7 @@ public class NextExecutionsWidget extends Widget {
 		
 		View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
 		
-		Jenkins j = Jenkins.getInstance();
+		Jenkins j = Jenkins.getInstanceOrNull();
 
 		if (j == null) {
 			return nblist;
@@ -129,7 +129,7 @@ public class NextExecutionsWidget extends Widget {
 
 	// Default displayMode will be 1
     public int getDisplayMode() {
-		Jenkins j = Jenkins.getInstance();
+		Jenkins j = Jenkins.getInstanceOrNull();
         DescriptorImpl d = j != null ? (DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class)) : null;
 
 		if (d == null) {

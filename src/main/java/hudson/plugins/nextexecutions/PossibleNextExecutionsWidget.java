@@ -19,7 +19,7 @@ public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
 	
 	@Override
 	public boolean showWidget() {
-		Jenkins j = Jenkins.getInstance();
+		Jenkins j = Jenkins.getInstanceOrNull();
 		DescriptorImpl d = j != null ? (DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class)) : null;
 
 		if (d == null){

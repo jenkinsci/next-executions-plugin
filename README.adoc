@@ -4,12 +4,7 @@
 Adds a widget in the sidebar with the next _build_ date for all the
 scheduled projects. It also creates a column definition.
 
-
 toc::[]
-
-
-On DEV@cloud
-------------
 
 image:https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fnext-executions-plugin%2Fmaster[]
 
@@ -21,22 +16,17 @@ A picture's worth a thousand words.
 Sidebar widget (main)
 ~~~~~~~~~~~~~~~~~~~~~
 
-image:docs/img/ff74f25465115c0d5003170ee17b94a07e2a95a7.jpg[image,title="Jenkins > Next Executions > next-executions1.jpeg"]
-
-Sidebar widget (Computer)
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-image:docs/img/dac9022b311b6a735e6bdd964b101636906ec950.png[image,title="Jenkins > Next Executions > next-executions-computer_widget.png"]
+image:docs/img/home_widget.png[image,title="Jenkins > Next Executions > home_widget.png"]
 
 View Column
 ~~~~~~~~~~~
 
-image:docs/img/257cde2bf762c739603f74001f1affa0a8418be7.jpg[image,title="Jenkins > Next Executions > next-executions_column.jpeg"]
+image:docs/img/job_column.png[image,title="Jenkins > Next Executions > job_column.png"]
 
 Configuration options
 ~~~~~~~~~~~~~~~~~~~~~
 
-image:docs/img/92a33c6fe243189bb4bc08f6a6d52727ae4117b6.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
+image:docs/img/global_configuration.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
 
 Changelog
 ---------
@@ -149,5 +139,3 @@ Version 1.0.0 (2011-06-09)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Initial Release.
-
- 
