@@ -87,7 +87,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	
 	@Exported
 	public String getUrl(){
-		Jenkins j = Jenkins.getInstance();
+		Jenkins j = Jenkins.getInstanceOrNull();
 		return j != null ? j.getRootUrl() + project.getUrl() : null;
 	}
 	
@@ -110,7 +110,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 
 	public DescriptorImpl getDescriptor() {
-		Jenkins j = Jenkins.getInstance();
+		Jenkins j = Jenkins.getInstanceOrNull();
 		return j != null ? (DescriptorImpl)j.getDescriptorOrDie(getClass()) : null;
 	}
 	
