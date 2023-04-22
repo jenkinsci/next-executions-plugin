@@ -6,7 +6,10 @@ scheduled projects. It also creates a column definition.
 
 toc::[]
 
-image:https://ci.jenkins.io/buildStatus/icon?job=Plugins%2Fnext-executions-plugin%2Fmaster[]
+image:https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main/badge/icon[Build Status]
+image:https://img.shields.io/jenkins/plugin/v/next-executions.svg[Jenkins Plugin]
+image:https://img.shields.io/github/release/jenkinsci/next-executions-plugin.svg?label=changelog[GitHub release]
+image:https://img.shields.io/jenkins/plugin/i/next-executions.svg?color=blue[Jenkins Plugin Installs]
 
 Screenshots
 -----------
@@ -30,6 +33,10 @@ image:docs/img/global_configuration.png[image,title="Jenkins > Next Executions >
 
 Changelog
 ---------
+
+Releases are now published on GitHub releases
+
+You can find bellow previous releases Changelog
 
 Version 1.0.15 (2019-10-30)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
