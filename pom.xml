@@ -10,7 +10,7 @@
     </parent>
     <properties>
         <changelist>999999-SNAPSHOT</changelist>
-        <jenkins.version>2.361.4</jenkins.version>
+        <jenkins.version>2.375.4</jenkins.version>
         <gitHubRepo>jenkinsci/next-executions-plugin</gitHubRepo>
     </properties>
     <scm>
@@ -20,13 +20,6 @@
         <tag>${scmTag}</tag>
     </scm>
     <url>https://github.com/jenkinsci/next-executions-plugin</url>
-
-    <developers>
-        <developer>
-            <id>ialbors</id>
-            <name>Ignacio Albors</name>
-        </developer>
-    </developers>
 
     <artifactId>next-executions</artifactId>
     <version>${changelist}</version>
@@ -49,8 +42,8 @@
         <dependencies>
           <dependency>
             <groupId>io.jenkins.tools.bom</groupId>
-            <artifactId>bom-2.361.x</artifactId>
-            <version>2000.v4677a_6e0ffea</version>
+            <artifactId>bom-2.375.x</artifactId>
+            <version>2025.v816d28f1e04f</version>
             <scope>import</scope>
             <type>pom</type>
           </dependency>
