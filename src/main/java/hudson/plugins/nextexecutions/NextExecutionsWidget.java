@@ -81,7 +81,6 @@ public class NextExecutionsWidget extends Widget {
 			l = j.getItems(ParameterizedJobMixIn.ParameterizedJob.class);
 		}
 		
-		
 		for (ParameterizedJobMixIn.ParameterizedJob project: l) {
 			NextBuilds nb = NextExecutionsUtils.getNextBuild(project, triggerClass);
 			if(nb != null)
