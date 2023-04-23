@@ -1,10 +1,8 @@
-:toc:
-:toc-placement!:
+Next executions plugin
+----------------------
 
 Adds a widget in the sidebar with the next _build_ date for all the
 scheduled projects. It also creates a column definition.
-
-toc::[]
 
 image:https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main/badge/icon[Build Status]
 image:https://img.shields.io/jenkins/plugin/v/next-executions.svg[Jenkins Plugin]
@@ -12,7 +10,7 @@ image:https://img.shields.io/github/release/jenkinsci/next-executions-plugin.svg
 image:https://img.shields.io/jenkins/plugin/i/next-executions.svg?color=blue[Jenkins Plugin Installs]
 
 Screenshots
------------
+~~~~~~~~~~~
 
 A picture's worth a thousand words.
 
@@ -30,6 +28,22 @@ Configuration options
 ~~~~~~~~~~~~~~~~~~~~~
 
 image:docs/img/global_configuration.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
+
+Build plugin
+~~~~~~~~~~~~
+
+[source,bash]
+----
+mvn clean install
+----
+
+Run test instance
+~~~~~~~~~~~~~~~~~
+
+[source,bash]
+----
+mvn hpi:run -Dport=8080 -Dhost=0.0.0.0
+----
 
 Changelog
 ---------
