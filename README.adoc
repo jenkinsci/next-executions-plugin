@@ -29,15 +29,32 @@ Configuration options
 
 image:docs/img/global_configuration.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
 
-JobDSL support
+
+Parameterized Scheduler Plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Recent version of the plugin support integration with parameterized-scheduler-plugin.
+
+Plugin need to be installed to display new widget and column.
+
+Need to be enable via JCasC or under system configuration.
+
+image:docs/img/column_parameterized.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
+
+image:docs/img/parameterized_next_execution.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
+
+
+
+JcasC support
 ~~~~~~~~~~~~~~
 
 [source,yaml]
 ----
 nextBuilds:
-  dateFormat: 'dd/MM/yyyy HH:mm'
+  dateFormat: 'dd/MM/yyyy HH:mm z'
   filterByView: false
   showPossibleWidget: false
+  showParameterizedWidget: false
   displayMode: 1
 ----
 

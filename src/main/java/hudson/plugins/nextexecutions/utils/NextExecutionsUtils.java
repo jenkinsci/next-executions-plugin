@@ -3,7 +3,6 @@ package hudson.plugins.nextexecutions.utils;
 import hudson.model.AbstractProject;
 import java.lang.reflect.Field;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Vector;
@@ -11,7 +10,6 @@ import java.util.Vector;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
-import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
 import java.util.Iterator;
@@ -20,18 +18,10 @@ import java.util.TimeZone;
 
 import jenkins.model.ParameterizedJobMixIn;
 
+@SuppressWarnings({"rawtypes", "unchecked", "java:S3011"})
 public class NextExecutionsUtils {
 
-    /**
-     * Returns the {@link NextBuilds} for the project.
-     *
-     * @return The {@link NextBuilds} object with the associated next execution
-     * date or null.
-     */
-    @Deprecated
-    public static NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
-        return getNextBuild(project, TimerTrigger.class);
-    }
+    private NextExecutionsUtils() {}
 
     public static NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
@@ -60,10 +50,8 @@ public class NextExecutionsUtils {
                             Calendar now = new GregorianCalendar(timezone);
                             cal = (cal == null || cal.compareTo(cronTab.ceil(now)) > 0) ? cronTab.ceil(now) : cal;
                         }
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
+                    } catch (NoSuchFieldException | IllegalAccessException e) {
+                        // Do nothing
                     }
                 }
             }

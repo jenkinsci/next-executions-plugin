@@ -8,18 +8,13 @@ import hudson.views.ListViewColumnDescriptor;
 import hudson.views.ListViewColumn;
 import hudson.plugins.nextexecutions.*;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
+import hudson.plugins.nextexecutions.utils.ParameterizedNextExecutionsUtils;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
+import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
 
-/**
- * 
- * Column that shows the next scheduled date for a job.
- * 
- * @author ialbors
- *
- */
-
+@SuppressWarnings("rawtypes")
 public class NextExecutionColumn extends ListViewColumn {
 
 	protected Class<? extends Trigger> triggerClass;
@@ -29,13 +24,30 @@ public class NextExecutionColumn extends ListViewColumn {
 	    triggerClass = TimerTrigger.class;
 	}
 	
-	public String getNextExecution(Job job){
+	public String getNextExecution(Job job) {
 		if(job instanceof ParameterizedJobMixIn.ParameterizedJob){
 			NextBuilds b = NextExecutionsUtils.getNextBuild((ParameterizedJobMixIn.ParameterizedJob)job, triggerClass);
-			if(b != null)
+			if(b != null) {
 				return b.getDate();
+			}
+			// Check parameterized 
+			else if (getShowParameterizedWidget()) {
+				b = ParameterizedNextExecutionsUtils.getNextBuild((ParameterizedJobMixIn.ParameterizedJob)job, triggerClass);
+				if(b != null) {
+					return b.getDate();
+				}
+			}
 		}
 		return "";
+	}
+
+	public boolean getShowParameterizedWidget() {
+		Jenkins j = Jenkins.getInstanceOrNull();
+        NextBuilds.DescriptorImpl d = j != null ? (NextBuilds.DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class)) : null;
+		if (d == null) {
+			return false;
+		}
+        return d.getShowParameterizedWidget();
 	}
 	
 	@Extension
@@ -43,7 +55,6 @@ public class NextExecutionColumn extends ListViewColumn {
 
 		@Override
 		public String getDisplayName() {
-			// TODO Auto-generated method stub
 			return Messages.NextExecutions_ColumnName();
 		}
 		@Override

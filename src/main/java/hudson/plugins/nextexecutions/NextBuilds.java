@@ -7,13 +7,10 @@ import hudson.util.FormValidation;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.TimeZone;
-
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
@@ -117,6 +114,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		private String dateFormat;
 		private Boolean filterByView;
 		private Boolean showPossibleWidget;
+		private Boolean showParameterizedWidget;
 		private Integer displayMode;
 		
 		public DescriptorImpl() {
@@ -155,6 +153,16 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 		public void setShowPossibleWidget(boolean showPossibleWidget) {
 			this.showPossibleWidget = showPossibleWidget;
 		}
+
+		public boolean getShowParameterizedWidget() {
+			if(showParameterizedWidget == null)
+				return false;
+			return showParameterizedWidget;
+		}
+		
+		public void setShowParameterizedWidget(boolean showParameterizedWidget) {
+			this.showParameterizedWidget = showParameterizedWidget;
+		}
 		
 		public Integer getDisplayMode() {
 			if(displayMode == null) {
@@ -181,6 +189,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			dateFormat = json.getString("dateFormat");
 			filterByView = json.getBoolean("filterByView");
 			showPossibleWidget = json.getBoolean("showPossibleWidget");
+			showParameterizedWidget = json.getBoolean("showParameterizedWidget");
 			displayMode = json.getInt("displayMode");
 			save();
 			return true;
