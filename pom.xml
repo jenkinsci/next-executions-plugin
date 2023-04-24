@@ -49,11 +49,4 @@
           </dependency>
         </dependencies>
       </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>2.12.5</version>
-        </dependency>
-    </dependencies>
 </project>

@@ -4,6 +4,7 @@ import hudson.model.AbstractProject;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -15,6 +16,8 @@ import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TimeZone;
+
 import jenkins.model.ParameterizedJobMixIn;
 
 public class NextExecutionsUtils {
@@ -32,6 +35,7 @@ public class NextExecutionsUtils {
 
     public static NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
+        TimeZone timezone = null;
         // Only AbstractProject has isDisabled method
         if ((project instanceof AbstractProject && !((AbstractProject) project).isDisabled())
                 || !(project instanceof AbstractProject)) {
@@ -52,8 +56,9 @@ public class NextExecutionsUtils {
                         List<CronTab> crons = (Vector<CronTab>) crontablistTabsField.get(cronTabList);
 
                         for (CronTab cronTab : crons) {
-                            Date d = new Date();
-                            cal = (cal == null || cal.compareTo(cronTab.ceil(d.getTime())) > 0) ? cronTab.ceil(d.getTime()) : cal;
+                            timezone = cronTab.getTimeZone() != null ? cronTab.getTimeZone() : TimeZone.getDefault();
+                            Calendar now = new GregorianCalendar(timezone);
+                            cal = (cal == null || cal.compareTo(cronTab.ceil(now)) > 0) ? cronTab.ceil(now) : cal;
                         }
                     } catch (NoSuchFieldException e) {
                         e.printStackTrace();
