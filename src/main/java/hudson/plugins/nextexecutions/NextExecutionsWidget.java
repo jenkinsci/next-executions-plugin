@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Logger;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
 import org.kohsuke.stapler.Stapler;
@@ -38,8 +37,8 @@ import org.kohsuke.stapler.export.ExportedBean;
  */
 @ExportedBean
 @Extension
+@SuppressWarnings("rawtypes")
 public class NextExecutionsWidget extends Widget {
-    private static final Logger LOGGER = Logger.getLogger(NextExecutionsWidget.class.getName());
 
     protected Class<? extends Trigger> triggerClass;
 
@@ -78,7 +77,7 @@ public class NextExecutionsWidget extends Widget {
             }
             l = vector;
         } else {
-            l = j.getItems(ParameterizedJobMixIn.ParameterizedJob.class);
+            l = j.getAllItems(ParameterizedJobMixIn.ParameterizedJob.class);
         }
 
         for (ParameterizedJobMixIn.ParameterizedJob project : l) {
