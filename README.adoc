@@ -29,6 +29,19 @@ Configuration options
 
 image:docs/img/global_configuration.png[image,title="Jenkins > Next Executions > next-executions-config_options.png"]
 
+JobDSL support
+~~~~~~~~~~~~~~
+
+[source,yaml]
+----
+nextBuilds:
+  dateFormat: 'dd/MM/yyyy HH:mm'
+  filterByView: false
+  showPossibleWidget: false
+  displayMode: 1
+----
+
+
 Build plugin
 ~~~~~~~~~~~~
 

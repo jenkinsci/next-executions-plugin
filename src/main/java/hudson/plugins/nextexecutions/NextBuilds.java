@@ -13,6 +13,7 @@ import java.util.Date;
 import jenkins.model.Jenkins;
 import net.sf.json.JSONObject;
 
+import org.jenkinsci.Symbol;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -115,6 +116,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 	}
 	
 	@Extension
+	@Symbol("nextBuilds")
 	public static class DescriptorImpl extends Descriptor<NextBuilds>  {
 		private String dateFormat;
 		private Boolean filterByView;
@@ -134,10 +136,18 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			return dateFormat;
 		}
 
+		public void setDateFormat(String dateFormat) {
+			this.dateFormat = dateFormat;
+		}
+
 		public boolean getFilterByView() {
 			if(filterByView == null)
 				return getFilterByViewDefault();
 			return filterByView;
+		}
+
+		public void setFilterByView(boolean filterByView) {
+			this.filterByView = filterByView;
 		}
 		
 		public boolean getShowPossibleWidget() {
@@ -146,12 +156,19 @@ public class NextBuilds implements Comparable, Describable<NextBuilds>{
 			return showPossibleWidget;
 		}
 		
+		public void setShowPossibleWidget(boolean showPossibleWidget) {
+			this.showPossibleWidget = showPossibleWidget;
+		}
 		
 		public Integer getDisplayMode() {
 			if(displayMode == null) {
 				return 1;
 			}
 			return displayMode;
+		}
+
+		public void setDisplayMode(Integer displayMode) {
+			this.displayMode = displayMode;
 		}
 
 		public String getDefault() {
