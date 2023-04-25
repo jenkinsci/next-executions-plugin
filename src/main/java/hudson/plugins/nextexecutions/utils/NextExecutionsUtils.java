@@ -1,21 +1,19 @@
 package hudson.plugins.nextexecutions.utils;
 
 import hudson.model.AbstractProject;
-import java.lang.reflect.Field;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Vector;
-
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
 import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
+import java.lang.reflect.Field;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-
+import java.util.Vector;
 import jenkins.model.ParameterizedJobMixIn;
 
 @SuppressWarnings({"rawtypes", "unchecked", "java:S3011"})
@@ -23,14 +21,16 @@ public class NextExecutionsUtils {
 
     private NextExecutionsUtils() {}
 
-    public static NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
+    public static NextBuilds getNextBuild(
+            ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
         TimeZone timezone = null;
         // Only AbstractProject has isDisabled method
         if ((project instanceof AbstractProject && !((AbstractProject) project).isDisabled())
                 || !(project instanceof AbstractProject)) {
             Map<TriggerDescriptor, Trigger<?>> triggers = project.getTriggers();
-            Iterator<Map.Entry<TriggerDescriptor, Trigger<?>>> iterator = triggers.entrySet().iterator();
+            Iterator<Map.Entry<TriggerDescriptor, Trigger<?>>> iterator =
+                    triggers.entrySet().iterator();
             while (iterator.hasNext()) {
                 Trigger trigger = iterator.next().getValue();
                 if (trigger.getClass().equals(triggerClass)) {

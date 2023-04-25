@@ -1,22 +1,22 @@
 package hudson.plugins.nextexecutions.columns;
 
+import hudson.Extension;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedTimerTrigger;
 import org.kohsuke.stapler.DataBoundConstructor;
-import hudson.Extension;
 
 public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
 
-	@DataBoundConstructor
-	public ParameterizedNextExecutionColumn() {
-	    triggerClass = ParameterizedTimerTrigger.class;
-	}
+    @DataBoundConstructor
+    public ParameterizedNextExecutionColumn() {
+        triggerClass = ParameterizedTimerTrigger.class;
+    }
 
-	@Extension(optional = true)
-	public static class DescriptorImpl extends NextExecutionColumn.DescriptorImpl {
+    @Extension(optional = true)
+    public static class DescriptorImpl extends NextExecutionColumn.DescriptorImpl {
 
-		@Override
-		public String getDisplayName() {
-			return Messages.ParameterizedExecutions_ColumnName();
-		}
-	}
+        @Override
+        public String getDisplayName() {
+            return Messages.ParameterizedExecutions_ColumnName();
+        }
+    }
 }
