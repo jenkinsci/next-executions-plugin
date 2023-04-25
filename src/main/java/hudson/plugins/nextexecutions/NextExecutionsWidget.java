@@ -20,6 +20,7 @@ import hudson.model.View;
 import hudson.model.TopLevelItem;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
+import hudson.plugins.nextexecutions.utils.ParameterizedNextExecutionsUtils;
 import hudson.triggers.Trigger;
 import hudson.triggers.TimerTrigger;
 import hudson.widgets.Widget;
@@ -83,8 +84,16 @@ public class NextExecutionsWidget extends Widget {
 		
 		for (ParameterizedJobMixIn.ParameterizedJob project: l) {
 			NextBuilds nb = NextExecutionsUtils.getNextBuild(project, triggerClass);
-			if(nb != null)
+			if(nb != null) {
 				nblist.add(nb);
+			}
+			// Check parameterized 
+			else if (getShowParameterizedWidget()) {
+				nb = ParameterizedNextExecutionsUtils.getNextBuild(project, triggerClass);
+				if(nb != null) {
+					nblist.add(nb);
+				}
+			}
 		}
 
 		// Get also the items in the queue but only those that have a waiting
@@ -136,5 +145,14 @@ public class NextExecutionsWidget extends Widget {
 		}
         return d.getDisplayMode();
     }
+
+	public boolean getShowParameterizedWidget() {
+		Jenkins j = Jenkins.getInstanceOrNull();
+        DescriptorImpl d = j != null ? (DescriptorImpl)(j.getDescriptorOrDie(NextBuilds.class)) : null;
+		if (d == null) {
+			return false;
+		}
+        return d.getShowParameterizedWidget();
+	}
 	
 }
