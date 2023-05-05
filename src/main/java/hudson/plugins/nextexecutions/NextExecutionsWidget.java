@@ -1,5 +1,6 @@
 package hudson.plugins.nextexecutions;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.Api;
 import hudson.model.Queue;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Vector;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
+import jenkins.widgets.WidgetFactory;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
@@ -36,14 +38,24 @@ import org.kohsuke.stapler.export.ExportedBean;
  *
  */
 @ExportedBean
-@Extension
 @SuppressWarnings("rawtypes")
 public class NextExecutionsWidget extends Widget {
+    private final String ownerUrl;
 
-    protected Class<? extends Trigger> triggerClass;
+    private Class<? extends Trigger> triggerClass;
 
-    public NextExecutionsWidget() {
-        triggerClass = TimerTrigger.class;
+    public NextExecutionsWidget(String ownerUrl) {
+        this(ownerUrl, TimerTrigger.class);
+    }
+
+    public NextExecutionsWidget(String ownerUrl, Class<? extends Trigger> triggerClass) {
+        this.ownerUrl = ownerUrl;
+        this.triggerClass = triggerClass;
+    }
+
+    @Override
+    public String getOwnerUrl() {
+        return ownerUrl;
     }
 
     public Api getApi() {
@@ -149,5 +161,24 @@ public class NextExecutionsWidget extends Widget {
             return false;
         }
         return d.getShowParameterizedWidget();
+    }
+
+    @Extension
+    public static final class FactoryImpl extends WidgetFactory<View, NextExecutionsWidget> {
+        @Override
+        public Class<View> type() {
+            return View.class;
+        }
+
+        @Override
+        public Class<NextExecutionsWidget> widgetType() {
+            return NextExecutionsWidget.class;
+        }
+
+        @NonNull
+        @Override
+        public Collection<NextExecutionsWidget> createFor(@NonNull View target) {
+            return List.of(new NextExecutionsWidget(target.getUrl()));
+        }
     }
 }
