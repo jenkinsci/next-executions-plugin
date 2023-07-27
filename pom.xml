@@ -20,7 +20,7 @@
   </scm>
   <properties>
     <changelist>999999-SNAPSHOT</changelist>
-    <jenkins.version>2.387.3</jenkins.version>
+    <jenkins.version>2.401.3</jenkins.version>
     <gitHubRepo>jenkinsci/next-executions-plugin</gitHubRepo>
     <spotless.check.skip>false</spotless.check.skip>
   </properties>
@@ -28,7 +28,7 @@
     <dependencies>
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
-        <artifactId>bom-2.375.x</artifactId>
+        <artifactId>bom-2.401.x</artifactId>
         <version>2198.v39c76fc308ca</version>
         <type>pom</type>
         <scope>import</scope>
