@@ -1,11 +1,11 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 <j:if test="${!it.builds.isEmpty()}">
-<l:pane width="2" title="${%Next executions}">
+<l:pane width="2" title="${it.widgetName}" id="${it.widgetId}">
   <j:forEach var="w" items="${it.builds}">
     <tr>
       <td><a tooltip="${w.name}" href="${w.url}">${w.shortName}</a></td>
-      <td>${w.date}</td>
+      <td tooltip="${w.timeToGo}">${w.date}</td>
     </tr>
   </j:forEach>
 </l:pane>
