@@ -1,7 +1,7 @@
 package hudson.plugins.nextexecutions;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
-import hudson.model.Api;
 import hudson.model.Queue;
 import hudson.model.Queue.Item;
 import hudson.model.Queue.WaitingItem;
@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Vector;
 import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
+import jenkins.widgets.WidgetFactory;
+import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.Stapler;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
@@ -36,18 +38,26 @@ import org.kohsuke.stapler.export.ExportedBean;
  *
  */
 @ExportedBean
-@Extension
 @SuppressWarnings("rawtypes")
 public class NextExecutionsWidget extends Widget {
 
-    protected Class<? extends Trigger> triggerClass;
+    @NonNull
+    private final String ownerUrl;
 
-    public NextExecutionsWidget() {
-        triggerClass = TimerTrigger.class;
+    private Class<? extends Trigger> triggerClass;
+
+    public NextExecutionsWidget(@NonNull String ownerUrl) {
+        this(ownerUrl, TimerTrigger.class);
     }
 
-    public Api getApi() {
-        return new Api(this);
+    public NextExecutionsWidget(@NonNull String ownerUrl, Class<? extends Trigger> triggerClass) {
+        this.ownerUrl = ownerUrl;
+        this.triggerClass = triggerClass;
+    }
+
+    @Override
+    public String getOwnerUrl() {
+        return ownerUrl;
     }
 
     @Exported(name = "next_executions")
@@ -149,5 +159,25 @@ public class NextExecutionsWidget extends Widget {
             return false;
         }
         return d.getShowParameterizedWidget();
+    }
+
+    @Symbol("nextExecutionsWidget")
+    @Extension
+    public static final class FactoryImpl extends WidgetFactory<View, NextExecutionsWidget> {
+        @Override
+        public Class<View> type() {
+            return View.class;
+        }
+
+        @Override
+        public Class<NextExecutionsWidget> widgetType() {
+            return NextExecutionsWidget.class;
+        }
+
+        @NonNull
+        @Override
+        public Collection<NextExecutionsWidget> createFor(@NonNull View target) {
+            return List.of(new NextExecutionsWidget(target.getUrl()));
+        }
     }
 }

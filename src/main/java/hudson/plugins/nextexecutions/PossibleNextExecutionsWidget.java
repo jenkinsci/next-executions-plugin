@@ -1,15 +1,20 @@
 package hudson.plugins.nextexecutions;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
+import hudson.model.View;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.triggers.SCMTrigger;
+import java.util.Collection;
+import java.util.List;
 import jenkins.model.Jenkins;
+import jenkins.widgets.WidgetFactory;
+import org.jenkinsci.Symbol;
 
-@Extension
 public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
 
-    public PossibleNextExecutionsWidget() {
-        triggerClass = SCMTrigger.class;
+    public PossibleNextExecutionsWidget(@NonNull String ownerUrl) {
+        super(ownerUrl, SCMTrigger.class);
     }
 
     @Override
@@ -31,5 +36,26 @@ public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
     @Override
     public String getWidgetId() {
         return super.getWidgetId() + "-possible";
+    }
+
+    @Symbol("possibleNextExecutionsWidget")
+    @Extension
+    public static final class FactoryImpl extends WidgetFactory<View, PossibleNextExecutionsWidget> {
+
+        @Override
+        public Class<View> type() {
+            return View.class;
+        }
+
+        @Override
+        public Class<PossibleNextExecutionsWidget> widgetType() {
+            return PossibleNextExecutionsWidget.class;
+        }
+
+        @NonNull
+        @Override
+        public Collection<PossibleNextExecutionsWidget> createFor(@NonNull View target) {
+            return List.of(new PossibleNextExecutionsWidget(target.getUrl()));
+        }
     }
 }

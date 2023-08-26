@@ -39,7 +39,7 @@ public class ParameterizedNextExecutionsUtils {
                     triggers.entrySet().iterator();
             while (iterator.hasNext()) {
                 Trigger trigger = iterator.next().getValue();
-                if (trigger.getClass().equals(triggerClass)) {
+                if (trigger.getClass().equals(triggerClass) && triggerClass.equals(ParameterizedTimerTrigger.class)) {
                     try {
                         Field triggerTabsField = ParameterizedTimerTrigger.class.getDeclaredField("cronTabList");
                         triggerTabsField.setAccessible(true);
