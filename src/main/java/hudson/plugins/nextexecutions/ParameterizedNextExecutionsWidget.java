@@ -55,7 +55,10 @@ public class ParameterizedNextExecutionsWidget extends NextExecutionsWidget {
         @NonNull
         @Override
         public Collection<ParameterizedNextExecutionsWidget> createFor(@NonNull View target) {
-            return List.of(new ParameterizedNextExecutionsWidget(target.getUrl()));
+            if (Jenkins.get().getPlugin("parameterized-scheduler") != null) {
+                return List.of(new ParameterizedNextExecutionsWidget(target.getUrl()));
+            }
+            return List.of();
         }
     }
 }

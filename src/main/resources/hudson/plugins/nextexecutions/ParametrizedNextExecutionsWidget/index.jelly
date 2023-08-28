@@ -1,5 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+<j:if test="${it.showWidget()}">
 <j:if test="${!it.builds.isEmpty()}">
 <l:pane width="2" title="${it.widgetName}" id="${it.widgetId}">
   <j:forEach var="w" items="${it.builds}">
@@ -9,5 +10,6 @@
     </tr>
   </j:forEach>
 </l:pane>
+</j:if>
 </j:if>
 </j:jelly>
