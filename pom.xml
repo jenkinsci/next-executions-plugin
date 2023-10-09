@@ -20,7 +20,7 @@
   </scm>
   <properties>
     <changelist>999999-SNAPSHOT</changelist>
-    <jenkins.version>2.414.1</jenkins.version>
+    <jenkins.version>2.414.2</jenkins.version>
     <gitHubRepo>jenkinsci/next-executions-plugin</gitHubRepo>
     <spotless.check.skip>false</spotless.check.skip>
   </properties>
