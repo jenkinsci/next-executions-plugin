@@ -4,14 +4,12 @@ import hudson.model.AbstractProject;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
+import hudson.scheduler.RareOrImpossibleDateException;
 import hudson.triggers.Trigger;
-import hudson.triggers.TriggerDescriptor;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.TimeZone;
 import java.util.Vector;
 import jenkins.model.ParameterizedJobMixIn;
@@ -24,15 +22,11 @@ public class NextExecutionsUtils {
     public static NextBuilds getNextBuild(
             ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
-        TimeZone timezone = null;
+
         // Only AbstractProject has isDisabled method
         if ((project instanceof AbstractProject && !((AbstractProject) project).isDisabled())
                 || !(project instanceof AbstractProject)) {
-            Map<TriggerDescriptor, Trigger<?>> triggers = project.getTriggers();
-            Iterator<Map.Entry<TriggerDescriptor, Trigger<?>>> iterator =
-                    triggers.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Trigger trigger = iterator.next().getValue();
+            for (Trigger<?> trigger : project.getTriggers().values()) {
                 if (trigger.getClass().equals(triggerClass)) {
                     try {
                         Field triggerTabsField = Trigger.class.getDeclaredField("tabs");
@@ -46,9 +40,16 @@ public class NextExecutionsUtils {
                         List<CronTab> crons = (Vector<CronTab>) crontablistTabsField.get(cronTabList);
 
                         for (CronTab cronTab : crons) {
-                            timezone = cronTab.getTimeZone() != null ? cronTab.getTimeZone() : TimeZone.getDefault();
-                            Calendar now = new GregorianCalendar(timezone);
-                            cal = (cal == null || cal.compareTo(cronTab.ceil(now)) > 0) ? cronTab.ceil(now) : cal;
+                            TimeZone timezone =
+                                    cronTab.getTimeZone() != null ? cronTab.getTimeZone() : TimeZone.getDefault();
+                            try {
+                                Calendar next = cronTab.ceil(new GregorianCalendar(timezone));
+                                if (cal == null || cal.compareTo(next) > 0) {
+                                    cal = next;
+                                }
+                            } catch (RareOrImpossibleDateException ignored) {
+                                // Ignore this crontab because its next date won't occur in the next two years
+                            }
                         }
                     } catch (NoSuchFieldException | IllegalAccessException e) {
                         // Do nothing
