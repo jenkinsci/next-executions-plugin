@@ -1,12 +1,13 @@
 package hudson.plugins.nextexecutions.utils;
 
-import hudson.model.AbstractProject;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
 import hudson.scheduler.RareOrImpossibleDateException;
 import hudson.triggers.Trigger;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -23,37 +24,44 @@ public class NextExecutionsUtils {
             ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
 
-        // Only AbstractProject has isDisabled method
-        if ((project instanceof AbstractProject && !((AbstractProject) project).isDisabled())
-                || !(project instanceof AbstractProject)) {
-            for (Trigger<?> trigger : project.getTriggers().values()) {
-                if (trigger.getClass().equals(triggerClass)) {
-                    try {
-                        Field triggerTabsField = Trigger.class.getDeclaredField("tabs");
-                        triggerTabsField.setAccessible(true);
+        // Skip all disabled jobs
+        try {
+            Method isDisabledMethod = project.getClass().getMethod("isDisabled");
+            isDisabledMethod.setAccessible(true);
+            if ((Boolean) isDisabledMethod.invoke(project)) {
+                return null;
+            }
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            // Do nothing
+        }
 
-                        CronTabList cronTabList = (CronTabList) triggerTabsField.get(trigger);
+        for (Trigger<?> trigger : project.getTriggers().values()) {
+            if (trigger.getClass().equals(triggerClass)) {
+                try {
+                    Field triggerTabsField = Trigger.class.getDeclaredField("tabs");
+                    triggerTabsField.setAccessible(true);
 
-                        Field crontablistTabsField = CronTabList.class.getDeclaredField("tabs");
-                        crontablistTabsField.setAccessible(true);
+                    CronTabList cronTabList = (CronTabList) triggerTabsField.get(trigger);
 
-                        List<CronTab> crons = (Vector<CronTab>) crontablistTabsField.get(cronTabList);
+                    Field crontablistTabsField = CronTabList.class.getDeclaredField("tabs");
+                    crontablistTabsField.setAccessible(true);
 
-                        for (CronTab cronTab : crons) {
-                            TimeZone timezone =
-                                    cronTab.getTimeZone() != null ? cronTab.getTimeZone() : TimeZone.getDefault();
-                            try {
-                                Calendar next = cronTab.ceil(new GregorianCalendar(timezone));
-                                if (cal == null || cal.compareTo(next) > 0) {
-                                    cal = next;
-                                }
-                            } catch (RareOrImpossibleDateException ignored) {
-                                // Ignore this crontab because its next date won't occur in the next two years
+                    List<CronTab> crons = (Vector<CronTab>) crontablistTabsField.get(cronTabList);
+
+                    for (CronTab cronTab : crons) {
+                        TimeZone timezone =
+                                cronTab.getTimeZone() != null ? cronTab.getTimeZone() : TimeZone.getDefault();
+                        try {
+                            Calendar next = cronTab.ceil(new GregorianCalendar(timezone));
+                            if (cal == null || cal.compareTo(next) > 0) {
+                                cal = next;
                             }
+                        } catch (RareOrImpossibleDateException ignored) {
+                            // Ignore this crontab because its next date won't occur in the next two years
                         }
-                    } catch (NoSuchFieldException | IllegalAccessException e) {
-                        // Do nothing
                     }
+                } catch (NoSuchFieldException | IllegalAccessException e) {
+                    // Do nothing
                 }
             }
         }
