@@ -11,6 +11,7 @@
   <artifactId>next-executions</artifactId>
   <version>${changelist}</version>
   <packaging>hpi</packaging>
+  <name>Next Executions</name>
   <url>https://github.com/jenkinsci/next-executions-plugin</url>
   <scm>
     <connection>scm:git:https://github.com/${gitHubRepo}.git</connection>
