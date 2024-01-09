@@ -141,17 +141,6 @@ public class NextExecutionsWidget extends Widget {
         return true;
     }
 
-    // Default displayMode will be 1
-    public int getDisplayMode() {
-        Jenkins j = Jenkins.getInstanceOrNull();
-        DescriptorImpl d = j != null ? (DescriptorImpl) (j.getDescriptorOrDie(NextBuilds.class)) : null;
-
-        if (d == null) {
-            return 1;
-        }
-        return d.getDisplayMode();
-    }
-
     public boolean getShowParameterizedWidget() {
         Jenkins j = Jenkins.getInstanceOrNull();
         DescriptorImpl d = j != null ? (DescriptorImpl) (j.getDescriptorOrDie(NextBuilds.class)) : null;
