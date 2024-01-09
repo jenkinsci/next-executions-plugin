@@ -1,26 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 <j:if test="${it.showWidget()}">
-  <style>
-  <j:if test="${it.displayMode==1}">
-  	#${it.widgetId} table {
-  		table-layout: fixed;
-  	}
-    #${it.widgetId} td {
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-  </j:if>
-  <j:if test="${it.displayMode==2}">
-  	#${it.widgetId} table {
-  		table-layout: fixed;
-  	}
-  	#${it.widgetId} td {
-  		word-wrap: break-word;
-  		white-space: normal;
-  	}
-  </j:if>
-  </style>
   <l:pane width="2" title="${it.widgetName}" id="${it.widgetId}">
     <j:forEach var="w" items="${it.builds}">
       <tr>
