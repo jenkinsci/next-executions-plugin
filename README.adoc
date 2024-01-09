@@ -55,7 +55,6 @@ nextBuilds:
   filterByView: false
   showPossibleWidget: false
   showParameterizedWidget: false
-  displayMode: 1
 ----
 
 
