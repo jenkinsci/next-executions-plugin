@@ -1,6 +1,6 @@
 package hudson.plugins.nextexecutions;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import hudson.model.FreeStyleProject;
 import hudson.triggers.TimerTrigger;
@@ -16,19 +16,21 @@ public class NextBuildsTest {
     public JenkinsRule j = new JenkinsRule();
 
     @Test
-    public void testGetCorrectNextExecutionTime() {
+    public void testGetCorrectDate() {
         try {
             FreeStyleProject project = j.createFreeStyleProject("test");
             project.addTrigger(new TimerTrigger("@daily"));
-            ZonedDateTime zdt = ZonedDateTime.now().plusDays(1);
-            String format = j.jenkins
-                    .getDescriptorByType(NextBuilds.DescriptorImpl.class)
-                    .getDateFormat();
+            ZonedDateTime zdt = ZonedDateTime.now();
+            NextBuilds.DescriptorImpl descriptor = j.jenkins.getDescriptorByType(NextBuilds.DescriptorImpl.class);
+            String format = descriptor.getDateFormat();
+            if (format == null) {
+                format = descriptor.getDefault();
+            }
             NextBuilds nextBuilds = new NextBuilds(project, Calendar.getInstance());
-            assertEquals(
-                    nextBuilds.getDate(), DateTimeFormatter.ofPattern(format).format(zdt));
+            assertEquals(zdt.format(DateTimeFormatter.ofPattern(format)), nextBuilds.getDate());
+            j.jenkins.getQueue().clear();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            fail(e.toString());
         }
     }
 }
