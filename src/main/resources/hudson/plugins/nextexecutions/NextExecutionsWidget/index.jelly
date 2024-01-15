@@ -2,12 +2,19 @@
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 <j:if test="${it.showWidget()}">
   <l:pane width="2" title="${it.widgetName}" id="${it.widgetId}">
-    <j:forEach var="w" items="${it.builds}">
+    <j:if test="${it.builds() == null}"> 
       <tr>
-        <td class="pane"><a tooltip="${w.name}" href="${w.url}">${w.name}</a></td>
-        <td class="pane" tooltip="${w.timeToGo}">${w.date}</td>
+        <td class="pane">No execution in process.</td>
       </tr>
-    </j:forEach>
+    </j:if>
+    <j:if test="${it.builds() != null}">
+      <j:forEach var="w" items="${it.builds}">
+        <tr>
+          <td class="pane"><a tooltip="${w.name}" href="${w.url}">${w.name}</a></td>
+          <td class="pane" tooltip="${w.timeToGo}">${w.date}</td>
+        </tr>
+      </j:forEach>
+    </j:if>
   </l:pane>
 </j:if>
 </j:jelly>
