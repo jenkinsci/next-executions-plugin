@@ -4,7 +4,7 @@
   <l:pane width="2" title="${it.widgetName}" id="${it.widgetId}">
     <j:if test="${it.builds() == null}"> 
       <tr>
-        <td class="pane">No execution in process.</td>
+        <td class="pane">${it.widgetEmptyMessage}</td>
       </tr>
     </j:if>
     <j:if test="${it.builds() != null}">
