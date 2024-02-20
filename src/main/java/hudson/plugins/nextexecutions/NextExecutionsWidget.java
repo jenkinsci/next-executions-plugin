@@ -71,7 +71,7 @@ public class NextExecutionsWidget extends Widget {
         Jenkins j = Jenkins.getInstanceOrNull();
 
         if (j == null) {
-            return nblist;
+            return null;
         }
 
         DescriptorImpl d = (DescriptorImpl) (j.getDescriptorOrDie(NextBuilds.class));
@@ -127,6 +127,10 @@ public class NextExecutionsWidget extends Widget {
 
         Collections.sort(nblist);
         return nblist;
+    }
+
+    public String getWidgetEmptyMessage() {
+        return Messages.NextExec_EmptyWidgetMessage();
     }
 
     public String getWidgetName() {
