@@ -133,6 +133,10 @@ public class NextExecutionsWidget extends Widget {
         return Messages.NextExec_WidgetName();
     }
 
+    public String getWidgetEmptyMessage() {
+        return Messages.NextExec_EmptyWidgetMessage();
+    }
+
     public String getWidgetId() {
         return "next-exec";
     }
