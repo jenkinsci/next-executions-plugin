@@ -39,6 +39,10 @@ public class NextExecutionsComputerWidget extends Widget {
         return Messages.NextExecComputer_WidgetName();
     }
 
+    public String getWidgetEmptyMessage() {
+        return Messages.NextExec_EmptyWidgetMessage();
+    }
+
     public String getWidgetId() {
         return "next-exec-computer";
     }

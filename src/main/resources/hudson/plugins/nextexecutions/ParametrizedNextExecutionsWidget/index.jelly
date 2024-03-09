@@ -1,15 +1,18 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
 <j:if test="${it.showWidget()}">
-<j:if test="${!it.builds.isEmpty()}">
 <l:pane width="2" title="${it.widgetName}" id="${it.widgetId}">
-  <j:forEach var="w" items="${it.builds}">
-    <tr>
-      <td class="pane"><a tooltip="${w.name}" href="${w.url}">${w.shortName}</a></td>
-      <td class="pane" tooltip="${w.timeToGo}">${w.date}</td>
-    </tr>
-  </j:forEach>
+  <j:if test="${!it.builds.isEmpty()}">
+    <j:forEach var="w" items="${it.builds}">
+      <tr>
+        <td class="pane"><a tooltip="${w.name}" href="${w.url}">${w.shortName}</a></td>
+        <td class="pane" tooltip="${w.timeToGo}">${w.date}</td>
+      </tr>
+    </j:forEach>
+  </j:if>
+  <j:if test="${it.builds.isEmpty()}">
+     <td class="pane">${it.widgetEmptyMessage}</td>
+  </j:if>
 </l:pane>
-</j:if>
 </j:if>
 </j:jelly>
