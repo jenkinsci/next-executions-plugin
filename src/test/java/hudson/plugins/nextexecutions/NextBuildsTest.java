@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.TimeZone;
 import net.sf.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,9 +65,9 @@ public class NextBuildsTest {
     public void testCompareToWithEqualDates() {
         try {
             FreeStyleProject project = j.createFreeStyleProject("test");
-            Calendar date1 = Calendar.getInstance();
+            Calendar date1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             date1.set(2024, Calendar.MARCH, 19);
-            Calendar date2 = Calendar.getInstance();
+            Calendar date2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             date2.set(2024, Calendar.MARCH, 19);
             NextBuilds nextBuild1 = new NextBuilds(project, date1);
             NextBuilds nextBuild2 = new NextBuilds(project, date2);
@@ -81,9 +82,9 @@ public class NextBuildsTest {
     public void testCompareToWithLesserDate() {
         try {
             FreeStyleProject project = j.createFreeStyleProject("test");
-            Calendar date1 = Calendar.getInstance();
+            Calendar date1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             date1.set(2024, Calendar.MARCH, 18);
-            Calendar date2 = Calendar.getInstance();
+            Calendar date2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             date2.set(2024, Calendar.MARCH, 19);
             NextBuilds nextBuild1 = new NextBuilds(project, date1);
             NextBuilds nextBuild2 = new NextBuilds(project, date2);
@@ -97,9 +98,9 @@ public class NextBuildsTest {
     public void testCompareToWithGreaterDate() {
         try {
             FreeStyleProject project = j.createFreeStyleProject("test");
-            Calendar date1 = Calendar.getInstance();
+            Calendar date1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             date1.set(2024, Calendar.MARCH, 20);
-            Calendar date2 = Calendar.getInstance();
+            Calendar date2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             date2.set(2024, Calendar.MARCH, 19);
             NextBuilds nextBuild1 = new NextBuilds(project, date1);
             NextBuilds nextBuild2 = new NextBuilds(project, date2);
