@@ -1,4 +1,4 @@
 <?jelly escape-by-default='true'?>
 <div>
-Adds a widget in the sidebar with the next _build_ date for all the scheduled projects. It also creates a column definition.
+Adds a widget in the sidebar with the next <i>build</i> date for all the scheduled projects. It also creates a column definition.
 </div>
