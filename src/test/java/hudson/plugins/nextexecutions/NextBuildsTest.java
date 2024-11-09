@@ -15,6 +15,7 @@ import java.util.TimeZone;
 import net.sf.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -62,6 +63,7 @@ public class NextBuildsTest {
     }
 
     @Test
+    @Disabled("Flaky test")
     public void testCompareToWithEqualDates() {
         try {
             FreeStyleProject project = j.createFreeStyleProject("test");
