@@ -15,7 +15,6 @@ import java.util.TimeZone;
 import net.sf.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.Disabled;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.kohsuke.stapler.StaplerRequest;
 
@@ -63,16 +62,13 @@ public class NextBuildsTest {
     }
 
     @Test
-    @Disabled("Flaky test")
     public void testCompareToWithEqualDates() {
         try {
             FreeStyleProject project = j.createFreeStyleProject("test");
-            Calendar date1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            date1.set(2024, Calendar.MARCH, 19);
-            Calendar date2 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            date2.set(2024, Calendar.MARCH, 19);
-            NextBuilds nextBuild1 = new NextBuilds(project, date1);
-            NextBuilds nextBuild2 = new NextBuilds(project, date2);
+            Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            date.set(2024, Calendar.MARCH, 19);
+            NextBuilds nextBuild1 = new NextBuilds(project, date);
+            NextBuilds nextBuild2 = new NextBuilds(project, date);
             assertEquals(0, nextBuild1.compareTo(nextBuild2));
             assertEquals(0, nextBuild1.compareTo("Not an Instance"));
         } catch (IOException e) {
