@@ -66,7 +66,7 @@ public class NextExecutionsWidget extends Widget {
 
         List<ParameterizedJobMixIn.ParameterizedJob> l;
 
-        View v = Stapler.getCurrentRequest().findAncestorObject(View.class);
+        View v = Stapler.getCurrentRequest2().findAncestorObject(View.class);
 
         Jenkins j = Jenkins.getInstanceOrNull();
 
