@@ -18,7 +18,7 @@ import jenkins.model.ParameterizedJobMixIn;
 import net.sf.json.JSONObject;
 import org.jenkinsci.Symbol;
 import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 
@@ -169,7 +169,7 @@ public class NextBuilds implements Comparable, Describable<NextBuilds> {
         }
 
         @Override
-        public boolean configure(StaplerRequest req, JSONObject json) throws hudson.model.Descriptor.FormException {
+        public boolean configure(StaplerRequest2 req, JSONObject json) throws hudson.model.Descriptor.FormException {
             dateFormat = json.getString("dateFormat");
             filterByView = json.getBoolean("filterByView");
             showPossibleWidget = json.getBoolean("showPossibleWidget");

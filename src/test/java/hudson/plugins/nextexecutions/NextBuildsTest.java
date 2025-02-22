@@ -16,7 +16,7 @@ import net.sf.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.StaplerRequest2;
 
 public class NextBuildsTest {
     @Rule
@@ -209,7 +209,7 @@ public class NextBuildsTest {
 
     @Test
     public void testConfigure() throws Exception {
-        StaplerRequest staplerRequest = mock(StaplerRequest.class);
+        StaplerRequest2 staplerRequest = mock(StaplerRequest2.class);
         JSONObject jsonMock = mock(JSONObject.class);
         when(jsonMock.getString("dateFormat")).thenReturn("dd-MM-yyyy");
         when(jsonMock.getBoolean("filterByView")).thenReturn(true);
