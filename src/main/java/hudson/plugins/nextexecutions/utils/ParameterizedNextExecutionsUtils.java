@@ -1,6 +1,5 @@
 package hudson.plugins.nextexecutions.utils;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
@@ -27,7 +26,6 @@ public class ParameterizedNextExecutionsUtils {
 
     private ParameterizedNextExecutionsUtils() {}
 
-    @SuppressFBWarnings(value = "RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE")
     public static NextBuilds getNextBuild(
             ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
