@@ -1,22 +1,20 @@
 package hudson.plugins.nextexecutions;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import hudson.model.View;
 import java.util.Collection;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
-public class PossibleNextExecutionsWidgetTest {
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class PossibleNextExecutionsWidgetTest {
 
     @Test
-    public void testGetWidgetName() {
+    void testGetWidgetName(JenkinsRule j) {
         PossibleNextExecutionsWidget widget = new PossibleNextExecutionsWidget("test");
         assertEquals("Possible Next Executions", widget.getWidgetName());
     }
@@ -24,25 +22,25 @@ public class PossibleNextExecutionsWidgetTest {
     // TODO: Add testShowWidget()
 
     @Test
-    public void testGetWidgetId() {
+    void testGetWidgetId(JenkinsRule j) {
         PossibleNextExecutionsWidget widget = new PossibleNextExecutionsWidget("test");
         assertEquals("next-exec-possible", widget.getWidgetId());
     }
 
     @Test
-    public void testType() {
+    void testType(JenkinsRule j) {
         PossibleNextExecutionsWidget.FactoryImpl factory = new PossibleNextExecutionsWidget.FactoryImpl();
         assertEquals(View.class, factory.type());
     }
 
     @Test
-    public void testWidgetType() {
+    void testWidgetType(JenkinsRule j) {
         PossibleNextExecutionsWidget.FactoryImpl factory = new PossibleNextExecutionsWidget.FactoryImpl();
         assertEquals(PossibleNextExecutionsWidget.class, factory.widgetType());
     }
 
     @Test
-    public void testCreateFor() {
+    void testCreateFor(JenkinsRule j) {
         PossibleNextExecutionsWidget.FactoryImpl factory = new PossibleNextExecutionsWidget.FactoryImpl();
         String url = "http://example.com/";
         View target = mock(View.class);

@@ -1,43 +1,41 @@
 package hudson.plugins.nextexecutions;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import hudson.model.Computer;
 import java.util.Collection;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 import org.mockito.Mock;
 
-public class NextExecutionsComputerWidgetTest {
+@WithJenkins
+class NextExecutionsComputerWidgetTest {
     @Mock
     private Computer computer;
 
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
-
     @Test
-    public void testGetWidgetName() {
+    void testGetWidgetName(JenkinsRule j) {
         NextExecutionsComputerWidget widget = new NextExecutionsComputerWidget(computer);
         assertEquals("Next Executions tied to this agent", widget.getWidgetName());
     }
 
     @Test
-    public void testGetWidgetEmptyMessage() {
+    void testGetWidgetEmptyMessage(JenkinsRule j) {
         NextExecutionsComputerWidget widget = new NextExecutionsComputerWidget(computer);
         assertEquals("No next executions found.", widget.getWidgetEmptyMessage());
     }
 
     @Test
-    public void testGetWidgetId() {
+    void testGetWidgetId(JenkinsRule j) {
         NextExecutionsComputerWidget widget = new NextExecutionsComputerWidget(computer);
         assertEquals("next-exec-computer", widget.getWidgetId());
     }
 
     @Test
-    public void testGetOwnerUrl() {
+    void testGetOwnerUrl(JenkinsRule j) {
         Computer computer1 = mock(Computer.class);
         when(computer1.getUrl()).thenReturn("test");
         NextExecutionsComputerWidget widget = new NextExecutionsComputerWidget(computer1);
@@ -47,19 +45,19 @@ public class NextExecutionsComputerWidgetTest {
     // TODO: Add testGetBuilds()
 
     @Test
-    public void testType() {
+    void testType(JenkinsRule j) {
         NextExecutionsComputerWidget.FactoryImpl factory = new NextExecutionsComputerWidget.FactoryImpl();
         assertEquals(Computer.class, factory.type());
     }
 
     @Test
-    public void testWidgetType() {
+    void testWidgetType(JenkinsRule j) {
         NextExecutionsComputerWidget.FactoryImpl factory = new NextExecutionsComputerWidget.FactoryImpl();
         assertEquals(NextExecutionsComputerWidget.class, factory.widgetType());
     }
 
     @Test
-    public void testCreateFor() {
+    void testCreateFor(JenkinsRule j) {
         NextExecutionsComputerWidget.FactoryImpl factory = new NextExecutionsComputerWidget.FactoryImpl();
         Collection<NextExecutionsComputerWidget> widgets = factory.createFor(computer);
         assertEquals(1, widgets.size());
