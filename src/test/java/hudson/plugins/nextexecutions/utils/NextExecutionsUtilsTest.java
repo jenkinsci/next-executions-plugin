@@ -13,55 +13,42 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import jenkins.model.ParameterizedJobMixIn;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
-public class NextExecutionsUtilsTest {
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class NextExecutionsUtilsTest {
 
     @Test
-    public void testGetNextBuildWhenProjectIsDisabled() {
-        try {
-            ParameterizedJobMixIn.ParameterizedJob project = mock(ParameterizedJobMixIn.ParameterizedJob.class);
-            when(project.isDisabled()).thenReturn(true);
+    void testGetNextBuildWhenProjectIsDisabled(JenkinsRule j) {
+        ParameterizedJobMixIn.ParameterizedJob project = mock(ParameterizedJobMixIn.ParameterizedJob.class);
+        when(project.isDisabled()).thenReturn(true);
 
-            assertNull(NextExecutionsUtils.getNextBuild(project, Trigger.class));
-        } catch (Exception e) {
-            fail(e.toString());
-        }
+        assertNull(NextExecutionsUtils.getNextBuild(project, Trigger.class));
     }
 
     @Test
-    public void testGetNextBuildWhenProjectHasNoTriggers() {
-        try {
-            ParameterizedJobMixIn.ParameterizedJob project = mock(ParameterizedJobMixIn.ParameterizedJob.class);
-            when(project.isDisabled()).thenReturn(false);
-            when(project.getTriggers()).thenReturn(Collections.emptyMap());
+    void testGetNextBuildWhenProjectHasNoTriggers(JenkinsRule j) {
+        ParameterizedJobMixIn.ParameterizedJob project = mock(ParameterizedJobMixIn.ParameterizedJob.class);
+        when(project.isDisabled()).thenReturn(false);
+        when(project.getTriggers()).thenReturn(Collections.emptyMap());
 
-            assertNull(NextExecutionsUtils.getNextBuild(project, Trigger.class));
-        } catch (Exception e) {
-            fail(e.toString());
-        }
+        assertNull(NextExecutionsUtils.getNextBuild(project, Trigger.class));
     }
 
     @Test
-    public void testGetNextBuildWhenProjectHasTrigger() {
-        try {
-            FreeStyleProject project = j.createFreeStyleProject("test");
-            Trigger trigger = new TimerTrigger("@daily");
-            project.addTrigger(trigger);
-            ZonedDateTime zdt = ZonedDateTime.now().plusDays(1).truncatedTo(ChronoUnit.DAYS);
-            NextBuilds.DescriptorImpl descriptor = j.jenkins.getDescriptorByType(NextBuilds.DescriptorImpl.class);
-            String format = descriptor.getDateFormat();
-            if (format == null) {
-                format = descriptor.getDefault();
-            }
-            NextBuilds nb = NextExecutionsUtils.getNextBuild(project, trigger.getClass());
-            assertEquals(zdt.format(DateTimeFormatter.ofPattern(format)), nb.getDate());
-        } catch (Exception e) {
-            fail(e.toString());
+    void testGetNextBuildWhenProjectHasTrigger(JenkinsRule j) throws Exception {
+        FreeStyleProject project = j.createFreeStyleProject("test");
+        Trigger trigger = new TimerTrigger("@daily");
+        project.addTrigger(trigger);
+        ZonedDateTime zdt = ZonedDateTime.now().plusDays(1).truncatedTo(ChronoUnit.DAYS);
+        NextBuilds.DescriptorImpl descriptor = j.jenkins.getDescriptorByType(NextBuilds.DescriptorImpl.class);
+        String format = descriptor.getDateFormat();
+        if (format == null) {
+            format = descriptor.getDefault();
         }
+        NextBuilds nb = NextExecutionsUtils.getNextBuild(project, trigger.getClass());
+        assertEquals(zdt.format(DateTimeFormatter.ofPattern(format)), nb.getDate());
     }
 }

@@ -1,6 +1,7 @@
 package hudson.plugins.nextexecutions;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -8,24 +9,22 @@ import hudson.model.View;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
 import java.util.Collection;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
-public class NextExecutionsWidgetTest {
-
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class NextExecutionsWidgetTest {
 
     @Test
-    public void testConstructorWithOwnerUrl() {
+    void testConstructorWithOwnerUrl(JenkinsRule j) {
         String ownerUrl = "http://example.com";
         NextExecutionsWidget widget = new NextExecutionsWidget(ownerUrl);
         assertEquals(ownerUrl, widget.getOwnerUrl());
     }
 
     @Test
-    public void testConstructorWithOwnerUrlAndTriggerClass() {
+    void testConstructorWithOwnerUrlAndTriggerClass(JenkinsRule j) {
         String ownerUrl = "http://example.com";
         Class<? extends Trigger> triggerClass = TimerTrigger.class;
         NextExecutionsWidget widget = new NextExecutionsWidget(ownerUrl, triggerClass);
@@ -33,31 +32,31 @@ public class NextExecutionsWidgetTest {
     }
 
     @Test
-    public void testGetWidgetName() {
+    void testGetWidgetName(JenkinsRule j) {
         NextExecutionsWidget widget = new NextExecutionsWidget("test");
         assertEquals("Next Executions", widget.getWidgetName());
     }
 
     @Test
-    public void testGetWidgetEmptyMessage() {
+    void testGetWidgetEmptyMessage(JenkinsRule j) {
         NextExecutionsWidget widget = new NextExecutionsWidget("test");
         assertEquals("No next executions found.", widget.getWidgetEmptyMessage());
     }
 
     @Test
-    public void testGetWidgetId() {
+    void testGetWidgetId(JenkinsRule j) {
         NextExecutionsWidget widget = new NextExecutionsWidget("test");
         assertEquals("next-exec", widget.getWidgetId());
     }
 
     @Test
-    public void testShowWidget() {
+    void testShowWidget(JenkinsRule j) {
         NextExecutionsWidget widget = new NextExecutionsWidget("test");
         assertTrue(widget.showWidget());
     }
 
     @Test
-    public void testGetShowParameterizedWidget() {
+    void testGetShowParameterizedWidget(JenkinsRule j) {
         NextExecutionsWidget widget = new NextExecutionsWidget("test");
         widget.getShowParameterizedWidget();
     }
@@ -65,19 +64,19 @@ public class NextExecutionsWidgetTest {
     // TODO: Add testGetBuilds()
 
     @Test
-    public void testType() {
+    void testType(JenkinsRule j) {
         NextExecutionsWidget.FactoryImpl factory = new NextExecutionsWidget.FactoryImpl();
         assertEquals(View.class, factory.type());
     }
 
     @Test
-    public void testWidgetType() {
+    void testWidgetType(JenkinsRule j) {
         NextExecutionsWidget.FactoryImpl factory = new NextExecutionsWidget.FactoryImpl();
         assertEquals(NextExecutionsWidget.class, factory.widgetType());
     }
 
     @Test
-    public void testCreateFor() {
+    void testCreateFor(JenkinsRule j) {
         NextExecutionsWidget.FactoryImpl factory = new NextExecutionsWidget.FactoryImpl();
         String url = "http://example.com/";
         View target = mock(View.class);

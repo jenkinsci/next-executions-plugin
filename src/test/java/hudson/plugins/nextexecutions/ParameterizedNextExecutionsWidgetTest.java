@@ -1,42 +1,42 @@
 package hudson.plugins.nextexecutions;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import hudson.model.View;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.jvnet.hudson.test.JenkinsRule;
+import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 
-public class ParameterizedNextExecutionsWidgetTest {
-    @Rule
-    public JenkinsRule j = new JenkinsRule();
+@WithJenkins
+class ParameterizedNextExecutionsWidgetTest {
 
     @Test
-    public void testGetWidgetName() {
+    void testGetWidgetName(JenkinsRule j) {
         ParameterizedNextExecutionsWidget widget = new ParameterizedNextExecutionsWidget("test");
         assertEquals("Parameterized Next Executions", widget.getWidgetName());
     }
 
     @Test
-    public void testShowWidget() {
+    void testShowWidget(JenkinsRule j) {
         ParameterizedNextExecutionsWidget factory = new ParameterizedNextExecutionsWidget("test");
         assertFalse(factory.showWidget());
     }
 
     @Test
-    public void testGetWidgetId() {
+    void testGetWidgetId(JenkinsRule j) {
         ParameterizedNextExecutionsWidget widget = new ParameterizedNextExecutionsWidget("test");
         assertEquals("next-exec-parameterized", widget.getWidgetId());
     }
 
     @Test
-    public void testType() {
+    void testType(JenkinsRule j) {
         ParameterizedNextExecutionsWidget.FactoryImpl factory = new ParameterizedNextExecutionsWidget.FactoryImpl();
         assertEquals(View.class, factory.type());
     }
 
     @Test
-    public void testWidgetType() {
+    void testWidgetType(JenkinsRule j) {
         ParameterizedNextExecutionsWidget.FactoryImpl factory = new ParameterizedNextExecutionsWidget.FactoryImpl();
         assertEquals(ParameterizedNextExecutionsWidget.class, factory.widgetType());
     }
