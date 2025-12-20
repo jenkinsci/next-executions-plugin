@@ -48,7 +48,7 @@ public class NextExecutionColumn extends ListViewColumn {
         if (d == null) {
             return false;
         }
-        return d.getShowParameterizedWidget();
+        return d.getShowParameterizedWidget() && j.getPlugin("parameterized-scheduler") != null;
     }
 
     @Extension
