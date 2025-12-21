@@ -33,7 +33,10 @@ public class NextExecutionsUtils {
                     CronTabList cronTabList = (CronTabList) triggerTabsField.get(trigger);
 
                     try {
-                        cal = cronTabList.next();
+                        Calendar next = cronTabList.next();
+                        if (cal == null || (next != null && cal.after(next))) {
+                            cal = next;
+                        }
                     } catch (RareOrImpossibleDateException ignored) {
                         // Ignore this crontab because its next date won't occur in the next two years
                     }
