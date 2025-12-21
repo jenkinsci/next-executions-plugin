@@ -1,45 +1,36 @@
 package hudson.plugins.nextexecutions.utils;
 
 import hudson.plugins.nextexecutions.NextBuilds;
-import hudson.scheduler.CronTab;
 import hudson.scheduler.CronTabList;
 import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.Vector;
 import jenkins.model.ParameterizedJobMixIn;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedCronTab;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedCronTabList;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedTimerTrigger;
+import org.kohsuke.accmod.restrictions.suppressions.SuppressRestrictedWarnings;
 
 @SuppressWarnings({"rawtypes", "unchecked", "java:S3011"})
 public class ParameterizedNextExecutionsUtils {
 
     private ParameterizedNextExecutionsUtils() {}
 
+    @SuppressRestrictedWarnings(CronTabList.class)
     public static NextBuilds getNextBuild(
             ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
         TimeZone timezone = null;
 
         // Skip all disabled jobs
-        try {
-            Method isDisabledMethod = project.getClass().getMethod("isDisabled");
-            isDisabledMethod.setAccessible(true);
-            if ((Boolean) isDisabledMethod.invoke(project)) {
-                return null;
-            }
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            // Do nothing
+        if (project.isDisabled()) {
+            return null;
         }
 
         Map<TriggerDescriptor, Trigger<?>> triggers = project.getTriggers();
@@ -64,13 +55,9 @@ public class ParameterizedNextExecutionsUtils {
                         Field crontablistField = ParameterizedCronTab.class.getDeclaredField("cronTabList");
                         crontablistField.setAccessible(true);
                         CronTabList list = (CronTabList) crontablistField.get(parameterizedCron);
-                        Field crontablistTabsField1 = CronTabList.class.getDeclaredField("tabs");
-                        crontablistTabsField1.setAccessible(true);
-                        List<CronTab> crons = (Vector<CronTab>) crontablistTabsField1.get(list);
-                        for (CronTab cronTab : crons) {
-                            timezone = cronTab.getTimeZone() != null ? cronTab.getTimeZone() : TimeZone.getDefault();
-                            Calendar now = new GregorianCalendar(timezone);
-                            cal = (cal == null || cal.compareTo(cronTab.ceil(now)) > 0) ? cronTab.ceil(now) : cal;
+                        Calendar next = list.next();
+                        if (next != null && (cal == null || cal.after(next))) {
+                            cal = next;
                         }
                     }
                 } catch (NoSuchFieldException | IllegalAccessException e) {

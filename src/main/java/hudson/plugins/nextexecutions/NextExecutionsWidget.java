@@ -151,7 +151,7 @@ public class NextExecutionsWidget extends Widget {
         if (d == null) {
             return false;
         }
-        return d.getShowParameterizedWidget();
+        return d.getShowParameterizedWidget() && j.getPlugin("parameterized-scheduler") != null;
     }
 
     @Symbol("nextExecutionsWidget")

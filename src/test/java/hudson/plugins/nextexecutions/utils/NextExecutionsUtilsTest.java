@@ -8,6 +8,7 @@ import hudson.model.FreeStyleProject;
 import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -21,10 +22,11 @@ import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
 class NextExecutionsUtilsTest {
 
     @Test
-    void testGetNextBuildWhenProjectIsDisabled(JenkinsRule j) {
-        ParameterizedJobMixIn.ParameterizedJob project = mock(ParameterizedJobMixIn.ParameterizedJob.class);
-        when(project.isDisabled()).thenReturn(true);
-
+    void testGetNextBuildWhenProjectIsDisabled(JenkinsRule j) throws IOException {
+        FreeStyleProject project = j.createFreeStyleProject("test");
+        Trigger trigger = new TimerTrigger("@daily");
+        project.addTrigger(trigger);
+        project.setDisabled(true);
         assertNull(NextExecutionsUtils.getNextBuild(project, Trigger.class));
     }
 
