@@ -2,20 +2,20 @@ package hudson.plugins.nextexecutions.columns;
 
 import hudson.Extension;
 import hudson.plugins.nextexecutions.NextBuilds;
-import hudson.plugins.nextexecutions.utils.ParameterizedNextExecutionsUtils;
+import hudson.plugins.nextexecutions.utils.ExtendedNextExecutionsUtils;
+import io.jenkins.plugins.extended_timer_trigger.ExtendedTimerTrigger;
 import jenkins.model.ParameterizedJobMixIn;
-import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedTimerTrigger;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
+public class ExtendedNextExecutionColumn extends NextExecutionColumn {
 
     @DataBoundConstructor
-    public ParameterizedNextExecutionColumn() {
-        triggerClass = ParameterizedTimerTrigger.class;
+    public ExtendedNextExecutionColumn() {
+        triggerClass = ExtendedTimerTrigger.class;
     }
 
     protected NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
-        return ParameterizedNextExecutionsUtils.getNextBuild(project, triggerClass);
+        return ExtendedNextExecutionsUtils.getNextBuild(project, triggerClass);
     }
 
     @Extension(optional = true)
@@ -23,7 +23,7 @@ public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
 
         @Override
         public String getDisplayName() {
-            return Messages.ParameterizedExecutions_ColumnName();
+            return Messages.ExtendedExecutions_ColumnName();
         }
     }
 }

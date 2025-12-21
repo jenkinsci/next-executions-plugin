@@ -13,6 +13,9 @@ public class ColumnFilter extends DescriptorVisibilityFilter {
         if (descriptor instanceof ParameterizedNextExecutionColumn.DescriptorImpl) {
             return Jenkins.get().getPlugin("parameterized-scheduler") != null;
         }
+        if (descriptor instanceof ExtendedNextExecutionColumn.DescriptorImpl) {
+            return Jenkins.get().getPlugin("extended-timer-trigger") != null;
+        }
         return true;
     }
 }

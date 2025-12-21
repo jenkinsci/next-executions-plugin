@@ -39,7 +39,7 @@ public class PossibleNextExecutionsWidget extends NextExecutionsWidget {
     }
 
     @Symbol("possibleNextExecutionsWidget")
-    @Extension
+    @Extension(ordinal = -30)
     public static final class FactoryImpl extends WidgetFactory<View, PossibleNextExecutionsWidget> {
 
         @Override

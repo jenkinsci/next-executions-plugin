@@ -4,7 +4,6 @@ import hudson.Extension;
 import hudson.model.Job;
 import hudson.plugins.nextexecutions.*;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
-import hudson.plugins.nextexecutions.utils.ParameterizedNextExecutionsUtils;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
 import hudson.views.ListViewColumn;
@@ -24,21 +23,17 @@ public class NextExecutionColumn extends ListViewColumn {
     }
 
     public String getNextExecution(Job job) {
-        if (job instanceof ParameterizedJobMixIn.ParameterizedJob) {
-            NextBuilds b = NextExecutionsUtils.getNextBuild((ParameterizedJobMixIn.ParameterizedJob) job, triggerClass);
+        if (job instanceof ParameterizedJobMixIn.ParameterizedJob project) {
+            NextBuilds b = getNextBuild(project);
             if (b != null) {
                 return b.getDate();
             }
-            // Check parameterized
-            else if (getShowParameterizedWidget()) {
-                b = ParameterizedNextExecutionsUtils.getNextBuild(
-                        (ParameterizedJobMixIn.ParameterizedJob) job, triggerClass);
-                if (b != null) {
-                    return b.getDate();
-                }
-            }
         }
         return "";
+    }
+
+    protected NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
+        return NextExecutionsUtils.getNextBuild(project, triggerClass);
     }
 
     public boolean getShowParameterizedWidget() {
