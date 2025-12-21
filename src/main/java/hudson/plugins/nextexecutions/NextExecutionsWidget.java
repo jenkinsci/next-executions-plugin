@@ -9,7 +9,6 @@ import hudson.model.TopLevelItem;
 import hudson.model.View;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
 import hudson.plugins.nextexecutions.utils.NextExecutionsUtils;
-import hudson.plugins.nextexecutions.utils.ParameterizedNextExecutionsUtils;
 import hudson.triggers.TimerTrigger;
 import hudson.triggers.Trigger;
 import hudson.widgets.Widget;
@@ -44,7 +43,7 @@ public class NextExecutionsWidget extends Widget {
     @NonNull
     private final String ownerUrl;
 
-    private Class<? extends Trigger> triggerClass;
+    protected Class<? extends Trigger> triggerClass;
 
     public NextExecutionsWidget(@NonNull String ownerUrl) {
         this(ownerUrl, TimerTrigger.class);
@@ -91,16 +90,9 @@ public class NextExecutionsWidget extends Widget {
         }
 
         for (ParameterizedJobMixIn.ParameterizedJob project : l) {
-            NextBuilds nb = NextExecutionsUtils.getNextBuild(project, triggerClass);
+            NextBuilds nb = getNextBuild(project);
             if (nb != null) {
                 nblist.add(nb);
-            }
-            // Check parameterized
-            else if (getShowParameterizedWidget()) {
-                nb = ParameterizedNextExecutionsUtils.getNextBuild(project, triggerClass);
-                if (nb != null) {
-                    nblist.add(nb);
-                }
             }
         }
 
@@ -129,6 +121,10 @@ public class NextExecutionsWidget extends Widget {
         return nblist;
     }
 
+    protected NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
+        return NextExecutionsUtils.getNextBuild(project, triggerClass);
+    }
+
     public String getWidgetName() {
         return Messages.NextExec_WidgetName();
     }
@@ -143,15 +139,6 @@ public class NextExecutionsWidget extends Widget {
 
     public boolean showWidget() {
         return true;
-    }
-
-    public boolean getShowParameterizedWidget() {
-        Jenkins j = Jenkins.getInstanceOrNull();
-        DescriptorImpl d = j != null ? (DescriptorImpl) (j.getDescriptorOrDie(NextBuilds.class)) : null;
-        if (d == null) {
-            return false;
-        }
-        return d.getShowParameterizedWidget() && j.getPlugin("parameterized-scheduler") != null;
     }
 
     @Symbol("nextExecutionsWidget")

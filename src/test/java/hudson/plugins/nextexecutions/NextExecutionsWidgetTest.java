@@ -55,12 +55,6 @@ class NextExecutionsWidgetTest {
         assertTrue(widget.showWidget());
     }
 
-    @Test
-    void testGetShowParameterizedWidget(JenkinsRule j) {
-        NextExecutionsWidget widget = new NextExecutionsWidget("test");
-        widget.getShowParameterizedWidget();
-    }
-
     // TODO: Add testGetBuilds()
 
     @Test
