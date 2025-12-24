@@ -4,9 +4,11 @@ import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import hudson.model.View;
 import hudson.plugins.nextexecutions.NextBuilds.DescriptorImpl;
+import hudson.plugins.nextexecutions.utils.ParameterizedNextExecutionsUtils;
 import java.util.Collection;
 import java.util.List;
 import jenkins.model.Jenkins;
+import jenkins.model.ParameterizedJobMixIn;
 import jenkins.widgets.WidgetFactory;
 import org.jenkinsci.Symbol;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedTimerTrigger;
@@ -38,8 +40,12 @@ public class ParameterizedNextExecutionsWidget extends NextExecutionsWidget {
         return super.getWidgetId() + "-parameterized";
     }
 
+    protected NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
+        return ParameterizedNextExecutionsUtils.getNextBuild(project, triggerClass);
+    }
+
     @Symbol("parameterizedNextExecutionsWidget")
-    @Extension(optional = true)
+    @Extension(optional = true, ordinal = -10)
     public static final class FactoryImpl extends WidgetFactory<View, ParameterizedNextExecutionsWidget> {
 
         @Override

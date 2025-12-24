@@ -13,5 +13,8 @@
     <f:entry title="${%Show Parameterized Next Executions Widget}" field="showParameterizedWidget">
       <f:checkbox />
     </f:entry>
+    <f:entry title="${%Show Extended Trigger Next Executions Widget}" field="showExtendedWidget">
+      <f:checkbox />
+    </f:entry>
   </f:section>
 </j:jelly>
