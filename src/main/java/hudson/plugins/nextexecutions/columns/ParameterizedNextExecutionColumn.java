@@ -11,6 +11,11 @@ public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
         triggerClass = ParameterizedTimerTrigger.class;
     }
 
+    @Override
+    public String getColumnId() {
+        return "column-next-parameterized-launch";
+    }
+
     @Extension(optional = true)
     public static class DescriptorImpl extends NextExecutionColumn.DescriptorImpl {
 

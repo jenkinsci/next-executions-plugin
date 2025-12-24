@@ -23,6 +23,10 @@ public class NextExecutionColumn extends ListViewColumn {
         triggerClass = TimerTrigger.class;
     }
 
+    public String getColumnId() {
+        return "column-next-launch";
+    }
+
     public String getNextExecution(Job job) {
         if (job instanceof ParameterizedJobMixIn.ParameterizedJob) {
             NextBuilds b = NextExecutionsUtils.getNextBuild((ParameterizedJobMixIn.ParameterizedJob) job, triggerClass);
