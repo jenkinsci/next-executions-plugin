@@ -14,6 +14,11 @@ public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
         triggerClass = ParameterizedTimerTrigger.class;
     }
 
+    @Override
+    public String getColumnId() {
+        return "column-next-parameterized-launch";
+    }
+
     protected NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
         return ParameterizedNextExecutionsUtils.getNextBuild(project, triggerClass);
     }

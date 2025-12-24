@@ -11,6 +11,11 @@ public class PossibleNextExecutionColumn extends NextExecutionColumn {
         triggerClass = SCMTrigger.class;
     }
 
+    @Override
+    public String getColumnId() {
+        return "column-next-possible-launch";
+    }
+
     @Extension
     public static class DescriptorImpl extends NextExecutionColumn.DescriptorImpl {
 
