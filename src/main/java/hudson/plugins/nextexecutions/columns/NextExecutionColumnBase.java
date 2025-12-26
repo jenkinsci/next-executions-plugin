@@ -5,7 +5,6 @@ import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.triggers.Trigger;
 import hudson.views.ListViewColumn;
 import hudson.views.ListViewColumnDescriptor;
-import jenkins.model.Jenkins;
 import jenkins.model.ParameterizedJobMixIn;
 
 @SuppressWarnings("rawtypes")
@@ -28,16 +27,6 @@ public abstract class NextExecutionColumnBase extends ListViewColumn {
     }
 
     protected abstract NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project);
-
-    public boolean getShowParameterizedWidget() {
-        Jenkins j = Jenkins.getInstanceOrNull();
-        NextBuilds.DescriptorImpl d =
-                j != null ? (NextBuilds.DescriptorImpl) (j.getDescriptorOrDie(NextBuilds.class)) : null;
-        if (d == null) {
-            return false;
-        }
-        return d.getShowParameterizedWidget() && j.getPlugin("parameterized-scheduler") != null;
-    }
 
     public abstract static class DescriptorImpl extends ListViewColumnDescriptor {
         @Override
