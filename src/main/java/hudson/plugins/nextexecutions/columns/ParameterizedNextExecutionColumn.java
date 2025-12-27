@@ -7,7 +7,7 @@ import jenkins.model.ParameterizedJobMixIn;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedTimerTrigger;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
+public class ParameterizedNextExecutionColumn extends NextExecutionColumnBase {
 
     @DataBoundConstructor
     public ParameterizedNextExecutionColumn() {
@@ -19,12 +19,13 @@ public class ParameterizedNextExecutionColumn extends NextExecutionColumn {
         return "column-next-parameterized-launch";
     }
 
+    @Override
     protected NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project) {
         return ParameterizedNextExecutionsUtils.getNextBuild(project, triggerClass);
     }
 
     @Extension(optional = true)
-    public static class DescriptorImpl extends NextExecutionColumn.DescriptorImpl {
+    public static class DescriptorImpl extends NextExecutionColumnBase.DescriptorImpl {
 
         @Override
         public String getDisplayName() {
