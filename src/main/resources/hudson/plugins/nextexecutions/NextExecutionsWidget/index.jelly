@@ -5,7 +5,9 @@
     <j:if test="${!it.builds.isEmpty()}">
       <j:forEach var="w" items="${it.builds}">
         <tr>
-          <td class="pane" style="word-break:break-all;"><a tooltip="${w.name}" href="${w.url}">${w.name}</a></td>
+          <td class="pane" style="word-break:break-all;">
+            <a tooltip="${w.name}${empty w.parametersTooltip ? '' : ' | '}${w.parametersTooltip}" href="${w.url}">${w.name}</a>
+          </td>
           <td class="pane" tooltip="${w.timeToGo}">${w.date}</td>
         </tr>
       </j:forEach>
