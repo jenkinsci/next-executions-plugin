@@ -44,7 +44,7 @@
     <dependency>
       <groupId>io.jenkins.plugins</groupId>
       <artifactId>extended-timer-trigger</artifactId>
-      <version>42.vd53942623176</version>
+      <version>48.vf99b_c63a_685b_</version>
       <optional>true</optional>
     </dependency>
     <dependency>
