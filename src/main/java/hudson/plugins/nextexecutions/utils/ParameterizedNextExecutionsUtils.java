@@ -4,20 +4,16 @@ import hudson.plugins.nextexecutions.NextBuilds;
 import hudson.scheduler.CronTabList;
 import hudson.triggers.Trigger;
 import hudson.triggers.TriggerDescriptor;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import jenkins.model.ParameterizedJobMixIn;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedCronTab;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedCronTabList;
 import org.jenkinsci.plugins.parameterizedscheduler.ParameterizedTimerTrigger;
 import org.kohsuke.accmod.restrictions.suppressions.SuppressRestrictedWarnings;
 
-@SuppressWarnings({"rawtypes", "unchecked", "java:S3011"})
+@SuppressWarnings({"rawtypes", "java:S3011"})
 public class ParameterizedNextExecutionsUtils {
 
     private ParameterizedNextExecutionsUtils() {}
@@ -26,7 +22,8 @@ public class ParameterizedNextExecutionsUtils {
     public static NextBuilds getNextBuild(
             ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
-        TimeZone timezone = null;
+        // TimeZone timezone = null;
+        String paramsTooltip = null;
 
         // Skip all disabled jobs
         if (project.isDisabled()) {
@@ -39,34 +36,30 @@ public class ParameterizedNextExecutionsUtils {
         while (iterator.hasNext()) {
             Trigger trigger = iterator.next().getValue();
             if (trigger.getClass().equals(triggerClass) && triggerClass.equals(ParameterizedTimerTrigger.class)) {
-                try {
-                    Field triggerTabsField = ParameterizedTimerTrigger.class.getDeclaredField("cronTabList");
-                    triggerTabsField.setAccessible(true);
-
-                    ParameterizedCronTabList parameterizedCronTabList =
-                            (ParameterizedCronTabList) triggerTabsField.get(trigger);
-
-                    Field crontablistTabsField = ParameterizedCronTabList.class.getDeclaredField("cronTabs");
-                    crontablistTabsField.setAccessible(true);
-                    List<ParameterizedCronTab> parameterizedCrons =
-                            (ArrayList<ParameterizedCronTab>) crontablistTabsField.get(parameterizedCronTabList);
-
-                    for (ParameterizedCronTab parameterizedCron : parameterizedCrons) {
-                        Field crontablistField = ParameterizedCronTab.class.getDeclaredField("cronTabList");
-                        crontablistField.setAccessible(true);
-                        CronTabList list = (CronTabList) crontablistField.get(parameterizedCron);
-                        Calendar next = list.next();
+                ParameterizedTimerTrigger ptt = (ParameterizedTimerTrigger) trigger;
+                ParameterizedCronTabList cronTabList = ptt.getCronTabList();
+                if (cronTabList != null) {
+                    ParameterizedCronTab nextTab = cronTabList.nextParameterizedCronTab();
+                    if (nextTab != null) {
+                        Calendar next = nextTab.next();
                         if (next != null && (cal == null || cal.after(next))) {
                             cal = next;
+                            Map<String, String> params = nextTab.getParameterValues();
+                            if (params != null && !params.isEmpty()) {
+                                StringBuilder sb = new StringBuilder();
+                                for (Map.Entry<String, String> entry : params.entrySet()) {
+                                    if (sb.length() > 0) sb.append(", ");
+                                    sb.append(entry.getKey()).append("=").append(entry.getValue());
+                                }
+                                paramsTooltip = sb.toString();
+                            }
                         }
                     }
-                } catch (NoSuchFieldException | IllegalAccessException e) {
-                    // Do nothing
                 }
             }
         }
         if (cal != null) {
-            return new NextBuilds(project, cal);
+            return new NextBuilds(project, cal, paramsTooltip);
         } else {
             return null;
         }

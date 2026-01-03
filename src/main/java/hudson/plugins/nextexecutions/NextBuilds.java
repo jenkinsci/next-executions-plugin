@@ -32,11 +32,22 @@ public class NextBuilds implements Comparable, Describable<NextBuilds> {
     private ParameterizedJobMixIn.ParameterizedJob project;
     private String name;
     private Calendar date;
+    private String parametersTooltip;
 
     public NextBuilds(ParameterizedJobMixIn.ParameterizedJob project, Calendar date) {
+        this(project, date, null);
+    }
+
+    public NextBuilds(ParameterizedJobMixIn.ParameterizedJob project, Calendar date, String parametersTooltip) {
         this.project = project;
         this.name = Util.escape(project.getFullDisplayName());
         this.date = date;
+        this.parametersTooltip = parametersTooltip;
+    }
+
+    @Exported
+    public String getParametersTooltip() {
+        return parametersTooltip != null ? parametersTooltip : "";
     }
 
     private String formatDate(ZonedDateTime d) {
