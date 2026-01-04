@@ -1,4 +1,10 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-  <td class="${it.columnId}">${it.getNextExecution(job)}</td>
+  <j:set var="info" value="${it.getNextExecutionInfo(job)}"/>
+  <td class="${it.columnId}">
+    ${it.getNextExecution(job)}
+    <j:if test="${info != null and !empty info.parametersTooltip}">
+      <l:icon src="symbol-parameters" class="icon-sm" tooltip="${info.parametersTooltip}"/>
+    </j:if>
+  </td>
 </j:jelly>

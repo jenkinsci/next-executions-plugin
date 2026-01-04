@@ -48,7 +48,7 @@ public class ParameterizedNextExecutionsUtils {
                             if (params != null && !params.isEmpty()) {
                                 StringBuilder sb = new StringBuilder();
                                 for (Map.Entry<String, String> entry : params.entrySet()) {
-                                    if (sb.length() > 0) sb.append(", ");
+                                    if (sb.length() > 0) sb.append("\n");
                                     sb.append(entry.getKey()).append("=").append(entry.getValue());
                                 }
                                 paramsTooltip = sb.toString();
