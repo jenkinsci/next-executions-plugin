@@ -8,7 +8,7 @@
         <td class="pane">
           <a href="${w.url}">${w.shortName}</a>
           <j:if test="${!empty w.parametersTooltip}">
-            <l:icon src="symbol-parameters" class="icon-sm" tooltip="${w.parametersTooltip}"/>
+            &#160;&#160;<l:icon src="symbol-parameters" class="icon-sm" tooltip="Build Parameters:&#10;${w.parametersTooltip}"/>
           </j:if>
         </td>
         <td class="pane">${w.date}</td>

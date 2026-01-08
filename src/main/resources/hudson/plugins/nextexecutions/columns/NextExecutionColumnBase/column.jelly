@@ -4,7 +4,7 @@
   <td class="${it.columnId}">
     ${it.getNextExecution(job)}
     <j:if test="${info != null and !empty info.parametersTooltip}">
-      <l:icon src="symbol-parameters" class="icon-sm" tooltip="${info.parametersTooltip}"/>
+      &#160;&#160;<l:icon src="symbol-parameters" class="icon-sm" tooltip="Build Parameters:&#10;${info.parametersTooltip}"/>
     </j:if>
   </td>
 </j:jelly>
