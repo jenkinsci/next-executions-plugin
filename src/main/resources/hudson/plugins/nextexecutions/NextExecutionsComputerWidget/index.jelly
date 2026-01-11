@@ -5,7 +5,12 @@
   <j:if test="${!it.builds.isEmpty()}">
     <j:forEach var="w" items="${it.builds}">
       <tr>
-        <td class="pane"><a tooltip="${w.name}" href="${w.url}">${w.shortName}</a></td>
+        <td class="pane">
+          <a href="${w.url}">${w.shortName}</a>
+          <j:if test="${!empty w.parametersTooltip}">
+            &#160;&#160;<l:icon src="symbol-parameters" class="icon-sm" tooltip="Build Parameters:&#10;${w.parametersTooltip}"/>
+          </j:if>
+        </td>
         <td class="pane">${w.date}</td>
       </tr>
     </j:forEach>

@@ -26,6 +26,13 @@ public abstract class NextExecutionColumnBase extends ListViewColumn {
         return "";
     }
 
+    public NextBuilds getNextExecutionInfo(Job job) {
+        if (job instanceof ParameterizedJobMixIn.ParameterizedJob project) {
+            return getNextBuild(project);
+        }
+        return null;
+    }
+
     protected abstract NextBuilds getNextBuild(ParameterizedJobMixIn.ParameterizedJob project);
 
     public abstract static class DescriptorImpl extends ListViewColumnDescriptor {
