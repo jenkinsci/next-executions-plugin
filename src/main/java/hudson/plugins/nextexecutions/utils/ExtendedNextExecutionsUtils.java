@@ -23,7 +23,6 @@ public class ExtendedNextExecutionsUtils {
     public static NextBuilds getNextBuild(
             ParameterizedJobMixIn.ParameterizedJob project, Class<? extends Trigger> triggerClass) {
         Calendar cal = null;
-        // TimeZone timezone = null;
         String paramsTooltip = null;
 
         // Skip all disabled jobs
