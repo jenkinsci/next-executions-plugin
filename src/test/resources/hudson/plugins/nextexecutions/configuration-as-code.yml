@@ -1,0 +1,7 @@
+unclassified:
+  nextBuilds:
+    dateFormat: 'dd/MM/yyyy HH:mm z'
+    filterByView: false
+    showPossibleWidget: false
+    showParameterizedWidget: false
+    showExtendedWidget: false
