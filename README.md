@@ -40,12 +40,13 @@ Need to be enable via JCasC or under system configuration.
 ![image](docs/img/parameterized_next_execution.png)
 
 ## JcasC support
-
-    nextBuilds:
-      dateFormat: 'dd/MM/yyyy HH:mm z'
-      filterByView: false
-      showPossibleWidget: false
-      showParameterizedWidget: false
+unclassified:
+  nextBuilds:
+    dateFormat: 'dd/MM/yyyy HH:mm z'
+    filterByView: false
+    showPossibleWidget: false
+    showParameterizedWidget: false
+    showExtendedWidget: false
 
 ## Build plugin
 
