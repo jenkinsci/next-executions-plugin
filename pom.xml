@@ -34,7 +34,7 @@
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
         <artifactId>bom-${jenkins.baseline}.x</artifactId>
-        <version>5933.vcf06f7b_5d1a_2</version>
+        <version>6005.v4235c33d86a_5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -45,7 +45,6 @@
     <dependency>
       <groupId>io.jenkins.plugins</groupId>
       <artifactId>extended-timer-trigger</artifactId>
-      <version>50.v1dde6750f820</version>
       <optional>true</optional>
     </dependency>
     <dependency>
