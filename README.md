@@ -3,9 +3,6 @@
 Adds a widget in the sidebar with the next *build* date for all the
 scheduled projects. It also creates a column definition.
 
-![Build Status](https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main/badge/icon)
-[![Coverage](https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main/badge/icon?status=${instructionCoverage}&subject=coverage&color=${colorInstructionCoverage})](https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main)
-[![LOC](https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main/badge/icon?job=test&status=${lineOfCode}&subject=line%20of%20code&color=blue)](https://ci.jenkins.io/job/Plugins/job/next-executions-plugin/job/main)
 ![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/next-executions.svg)
 ![GitHub release](https://img.shields.io/github/release/jenkinsci/next-executions-plugin.svg?label=changelog)
 ![Jenkins Plugin Installs](https://img.shields.io/jenkins/plugin/i/next-executions.svg?color=blue)
